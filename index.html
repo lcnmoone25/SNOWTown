@@ -3990,6 +3990,8 @@ function bannerMat(v){return tb((x,w,h)=>{const g=x.createLinearGradient(0,0,w,h
  if(v){x.font='bold '+(w*.62)+'px '+FONT;'CORTIS'.split('').forEach((c,k)=>x.fillText(c,w/2,h*.14+k*h*.145))}else{x.font='bold '+(h*.5)+'px '+FONT;x.fillText('CORTIS',w/2,h/2+3)}},v?128:256,v?384:128)}
 function plateTex(t,c1,c2,w,h,fs){return tb((x,W,H)=>{x.fillStyle=c1;x.beginPath();x.roundRect?x.roundRect(4,4,W-8,H-8,H/2.4):x.rect(4,4,W-8,H-8);x.fill();x.fillStyle=c2;x.font='bold '+fs+'px '+FONT;x.textAlign='center';x.textBaseline='middle';x.fillText(t,W/2,H/2+2)},w,h)}
 let KAFE_G=null;const KAFE_HIT=[];
+// Replace any entry with an image URL to update that gallery photo.
+const CAFE_EXHIBITION_IMAGES=Array(18).fill(CORTIS_IMG);
 function buildKafe(){const KC={cream:'#fff8eb',wall:'#dbeaf3',pink:'#c9e3f4',rose:'#8ab9d7',wood:'#c5af95',dark:'#49687d',glass:'#c5e7ed',mint:'#a4c7b2',floor:'#e9eff0',gold:'#d4b779',white:'#fffdf6',choc:'#7a4a3a'},kmat=(c,ex)=>new T.MeshStandardMaterial(Object.assign({color:c,roughness:.8,emissive:c,emissiveIntensity:0},ex||{})),KM={};Object.keys(KC).forEach(k=>KM[k]=kmat(KC[k]));const G={outside:new T.Group(),first:new T.Group(),second:new T.Group()};
 function kbox(p,w,h,d,x,y,z,ma,rad=0){const o=new T.Mesh(new T.BoxGeometry(w,h,d),ma);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;p.add(o);return o}function ksph(p,r,x,y,z,ma,s=[1,1,1]){const o=new T.Mesh(new T.SphereGeometry(r,20,14),ma);o.position.set(x,y,z);o.scale.set(...s);o.castShadow=true;p.add(o);return o}function kcyl(p,r1,r2,h,x,y,z,ma,n=20){const o=new T.Mesh(new T.CylinderGeometry(r1,r2,h,n),ma);o.position.set(x,y,z);o.castShadow=true;p.add(o);return o}function ktxt(p,str,x,y,z,sz=.25,color='#75554b',rot=0){const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=256;const c=canvas.getContext('2d');c.clearRect(0,0,1024,256);c.fillStyle=color;c.font='bold 125px Trebuchet MS, Arial';c.textAlign='center';c.textBaseline='middle';c.fillText(str,512,135);const tex=new T.CanvasTexture(canvas);const o=new T.Mesh(new T.PlaneGeometry(sz*4,sz),new T.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false,side:T.DoubleSide}));o.position.set(x,y,z);o.rotation.y=rot;p.add(o);return o}function kheart(p,x,y,z,s=.15){const a=KM.rose;ksph(p,s,x-s*.55,y,z,a,[1,1,.5]);ksph(p,s,x+s*.55,y,z,a,[1,1,.5]);const o=kbox(p,s*1.8,s*1.8,s*.65,x,y-s*.58,z,a);o.rotation.z=Math.PI/4}function kflower(p,x,y,z,s=.17){for(let i=0;i<5;i++){const a=i*Math.PI*2/5;ksph(p,s,x+Math.sin(a)*s*1.05,y+Math.cos(a)*s*1.05,z,KM.pink,[.9,.9,.5])}ksph(p,s*.62,x,y,z+.07,KM.gold)}function kbunny(p,x,y,z,scale=1){const b=new T.Group();b.position.set(x,y,z);b.scale.setScalar(scale);p.add(b);ksph(b,.35,0,.42,0,KM.white,[1,1,.82]);ksph(b,.24,0,.09,0,KM.white,[1,.85,.8]);for(const dx of [-.17,.17]){ksph(b,.13,dx,.91,0,KM.white,[.7,2,.62]);ksph(b,.045,dx,.44,.28,KM.choc)}ksph(b,.045,0,.35,.29,KM.rose);return b}function kplant(p,x,y,z){kcyl(p,.19,.15,.35,x,y+.17,z,KM.rose);for(let i=0;i<5;i++){const a=i*2.4;ksph(p,.21,x+Math.sin(a)*.2,y+.52+i*.03,z+Math.cos(a)*.18,KM.mint,[.65,1.3,.65])}}function ktable(p,x,y,z){kcyl(p,.07,.07,.5,x,y+.25,z,KM.wood);kcyl(p,.52,.52,.09,x,y+.54,z,KM.cream);kcyl(p,.25,.25,.05,x,y+.04,z,KM.wood);kcyl(p,.11,.09,.14,x+.14,y+.66,z,KM.white);ksph(p,.07,x+.14,y+.76,z,KM.pink)}function kchair(p,x,y,z){kcyl(p,.31,.31,.12,x,y+.26,z,KM.rose);kbox(p,.54,.48,.1,x,y+.55,z+.22,KM.pink);for(const a of [-.2,.2])for(const b of [-.2,.2])kcyl(p,.035,.035,.27,x+a,y+.12,z+b,KM.wood)}function kshelf(p,x,y,z){kbox(p,1.35,1.65,.28,x,y+.84,z,KM.wood);for(let k=0;k<3;k++){kbox(p,1.3,.08,.38,x,y+.35+k*.52,z+.13,KM.cream);for(let j=0;j<4;j++)kbox(p,.15,.24,.08,x-.44+j*.27,y+.5+k*.52,z+.35,[KM.pink,KM.mint,KM.white,KM.rose][(k+j)%4])}}function klamp(p,x,y,z){kcyl(p,.025,.025,.35,x,y,z,KM.wood);ksph(p,.15,x,y-.2,z,kmat('#ffe5a5',{emissive:'#ffc88b',emissiveIntensity:.3}),[1,.7,1])}function kpastry(p,x,y,z){kcyl(p,.19,.2,.13,x,y,z,KM.cream);ksph(p,.1,x,y+.09,z,KM.rose,[1,.5,1])}
 const ex=G.outside;kbox(ex,7.25,3.15,5.65,0,1.58,0,KM.wall);kbox(ex,7.48,.2,5.85,0,3.15,0,KM.cream);kbox(ex,7.25,2.55,5.65,0,4.5,0,KM.cream);kbox(ex,7.5,.22,5.9,0,5.8,0,KM.wood);for(const x of [-3.52,3.52])for(const z of [-2.74,2.74])kbox(ex,.16,3.15,.16,x,1.6,z,KM.wood);kbox(ex,1.28,2.35,.12,-1.75,1.2,2.89,KM.wood);kbox(ex,1.02,2.15,.14,-1.75,1.18,2.98,KM.glass);ksph(ex,.07,-1.33,1.15,3.08,KM.gold);for(let i=0;i<3;i++){const x=.1+i*1.03;kbox(ex,.91,2.15,.13,x,1.55,2.91,KM.wood);kbox(ex,.79,2.02,.15,x,1.56,3,KM.glass);kbox(ex,.055,2.08,.17,x,1.56,3.09,KM.cream)}for(let i=0;i<8;i++){const x=-2.95+i*.85;kbox(ex,.81,.11,1.13,x,2.88,3.4,i%2?KM.white:KM.pink)}kbox(ex,7.6,.12,.2,0,2.82,3.86,KM.rose);kbox(ex,4.1,1.03,.25,0,3.15,3.08,KM.wood);kbox(ex,3.86,.82,.28,0,3.15,3.24,KM.cream);ktxt(ex,'Hayden',0,3.33,3.41,.75);ktxt(ex,'FANGIRL CAFÉ',0,2.98,3.42,.22);for(let i=0;i<4;i++)klamp(ex,-2.8+i*1.85,2.78,3.42);kbox(ex,1.4,1.5,.13,-3.75,1.75,1.35,KM.rose);ktxt(ex,'♡',-3.75,1.8,1.45,.35, '#fff9f1',-Math.PI/2);kbox(ex,.12,1.7,.8,3.67,1.8,1.1,KM.rose);ktxt(ex,'COFFEE',3.76,2.1,1.1,.2,'#fffaf3',Math.PI/2);ktxt(ex,'& MERCH',3.76,1.85,1.1,.17,'#fffaf3',Math.PI/2);for(const x of [-2.8,2.9])kplant(ex,x,0,3.2);ktable(ex,3.3,0,4);kchair(ex,2.6,0,4);kchair(ex,4,0,4);kbox(ex,1.1,.85,.12,-3.1,.55,3.62,KM.wood);ktxt(ex,'MENU ♡',-3.1,.68,3.7,.2,'#fffaf3');for(let i=0;i<3;i++){kbox(ex,1.1,.08,.2,-2.7+i*.9,0,4.7,KM.wood)}kbunny(ex,-3.15,.03,3.3,.5);kheart(ex,2.9,3.5,3.04,.11);
@@ -4023,18 +4025,43 @@ kbox(L,3.1,.06,.07,0,.64,1.32,KM.rose);
 for(let k=0;k<7;k++)kbox(L,.045,.62,.045,1.54,.31,-1.5+k*.46,KM.rose);kbox(L,.07,.06,2.86,1.54,.64,-.12,KM.rose);
 // Stairs are furniture-width, aligned along the open front edge.
 for(let i=0;i<10;i++)kbox(f,.72,.225*(i+1),.23,-3.02,.1125*(i+1),2.65-i*.23,KM.wood);
-// One clean exhibition wall; one bench and small table upstairs.
-kbox(L,2.2,1.35,.08,0,1.45,-2.21,KM.white);xp(L,2,1.12,photoW(),0,1.45,-2.15);
-ktxt(L,'CORTIS / FAN GALLERY',0,2.23,-2.14,.16,'#49687d');
-kbox(L,1.8,.12,.65,-.15,.46,-.65,KM.pink);for(const x of [-.9,.6])kbox(L,.08,.43,.5,x,.22,-.65,KM.wood);
-kbox(L,1.8,.44,.09,-.15,.73,-.94,KM.pink);ktable(L,.1,0,.45);kplant(L,-1.1,0,-1.65);
-vis(L,1,-.35,-.55,0).position.y=.51;
-// Ground floor: one round table, open circulation, one photocard desk.
-ktable(f,-1.45,0,1.05);kchair(f,-2.1,0,1.12);kchair(f,-.8,0,1.12);
-vis(f,8,-2.1,1.12,Math.PI/2).position.y=.3;
+// CORTIS exhibition: framed photo salon, clipped prints and collectible plinths.
+const galleryTextures=CAFE_EXHIBITION_IMAGES.map(src=>new T.TextureLoader().load(src));
+function fanPhoto(P,index,x,y,z,w=.6,h=.78,ry=0){
+ const group=new T.Group();group.position.set(x,y,z);group.rotation.y=ry;P.add(group);
+ kbox(group,w+.08,h+.09,.045,0,0,0,KM.wood);kbox(group,w+.04,h+.05,.05,0,0,.006,KM.white);
+ const image=xp(group,w-.045,h-.12,new T.MeshBasicMaterial({map:galleryTextures[index%galleryTextures.length]}),0,.025,.035);
+ ktxt(group,'CORTIS ♡',0,-h/2+.025,.04,.035,'#66849a');hit(group,'expo',0,0,.045,w,h,.08);return group;
+}
+ktxt(L,'C O R T I S',0,2.13,-2.14,.24,'#49687d');
+ktxt(L,'FAN EXHIBITION / HAYDEN',0,1.9,-2.13,.095,'#66849a');
+for(let row=0;row<2;row++)for(let i=0;i<4;i++)fanPhoto(L,row*4+i,-1.14+i*.76,1.43-row*.83,-2.14,.57,.66);
+// Photos on the upper side wall, angled into the room.
+for(let i=0;i<3;i++)fanPhoto(L,8+i,-1.56,1.35,-1.45+i*.95,.62,.83,Math.PI/2);
+// Hanging photo line stays above the walkway and counter.
+const wire=new T.Line(new T.BufferGeometry().setFromPoints([new T.Vector3(-.2,4.1,-2.37),new T.Vector3(1.35,3.94,-2.37),new T.Vector3(3.25,4.1,-2.37)]),new T.LineBasicMaterial({color:0x9ab7cb}));f.add(wire);
+for(let i=0;i<5;i++){const x=.05+i*.71,y=3.79-Math.sin(i/4*Math.PI)*.14;const print=fanPhoto(f,11+i,x,y,-2.32,.45,.55);print.rotation.z=(i%2?1:-1)*.055;kbox(f,.065,.13,.06,x,y+.33,-2.29,KM.wood);}
+// Upper gallery display plinths: lightsticks, cup sleeves and photocards.
+for(const x of [-.7,.6]){kbox(L,.66,.58,.58,x,.29,-.35,KM.white);kbox(L,.7,.045,.62,x,.6,-.35,KM.pink);}
+kcyl(L,.035,.035,.37,-.7,.83,-.35,KM.wood);ksph(L,.15,-.7,1.09,-.35,KM.glass);
+for(let i=0;i<3;i++)kcyl(L,.075,.065,.18,.4+i*.19,.72,-.35,KM.white);
+ktxt(L,'CUP SLEEVE',.6,.38,-.02,.055,'#66849a');hit(L,'cups',.6,.8,-.35,.8,.5,.7);
+vis(L,1,.5,.7,Math.PI);kplant(L,-1.1,0,1.03);
+// Exactly three small cafe tables, all beside the left-hand windows.
+for(let i=0;i<3;i++){
+ const z=-1.75+i*1.18;
+ kbox(f,.045,1.15,.96,-3.45,1.25,z,KM.white);kbox(f,.05,1.04,.85,-3.41,1.25,z,KM.glass);kbox(f,.055,.045,.85,-3.37,1.25,z,KM.white);
+ const table=new T.Group();table.position.set(-2.8,0,z);table.scale.setScalar(.72);ktable(table,0,0,0);f.add(table);
+ const chair=new T.Group();chair.position.set(-2.04,0,z);chair.rotation.y=Math.PI/2;chair.scale.setScalar(.74);kchair(chair,0,0,0);f.add(chair);
+}
+vis(f,8,-2.04,-1.75,-Math.PI/2).position.y=.23;
+// Photocard trading/display desk: no extra seating.
 kbox(f,1.35,.1,.7,1.5,.64,1.65,KM.cream);for(const x of [.95,2.05])kbox(f,.055,.58,.55,x,.3,1.65,KM.wood);
-for(let i=0;i<3;i++)card(f,1.15+i*.32,.7,1.65,.1*i,[0xb9dcf2,0xffdfd6,0xe4dff5][i]);
-kchair(f,1.5,0,2.3);vis(f,4,1.5,2.3,Math.PI).position.y=.3;
+for(let i=0;i<5;i++)card(f,1.04+i*.23,.7,1.65,.08*i,[0xb9dcf2,0xffdfd6,0xe4dff5][i%3]);
+ktxt(f,'PHOTOCARD ARCHIVE',1.5,.47,2.02,.08,'#49687d');hit(f,'cards',1.5,.8,1.65,1.4,.4,.8);
+vis(f,4,2.5,1.6,-Math.PI/2);
+// Freestanding photo exhibit in the former seating area.
+for(let i=0;i<2;i++){const x=-1+i*1.1;kbox(f,.07,.72,.07,x,.36,1.95,KM.wood);kbox(f,.55,.045,.4,x,.04,1.95,KM.cream);fanPhoto(f,16+i,x,1.12,1.95,.7,.92);}
 // Coffee counter in the open double-height zone; Sáng faces the customer.
 kbox(f,2.65,.86,1.05,1.6,.48,-.6,KM.pink);kbox(f,2.8,.12,1.15,1.6,.97,-.6,KM.cream);
 for(let i=0;i<8;i++)kbox(f,.025,.65,.025,.5+i*.31,.48,-.06,KM.white);
@@ -4043,11 +4070,9 @@ for(const x of [2.18,2.57])kcyl(f,.075,.06,.14,x,1.1,-.2,KM.white);
 kbox(f,1.6,.08,.38,1.6,1.93,-2.56,KM.wood);for(let i=0;i<4;i++)kcyl(f,.08,.065,.18,1.05+i*.34,2.06,-2.55,KM.white);
 ktxt(f,'H A Y D E N',1.5,2.62,-2.65,.28,'#49687d');ktxt(f,'COFFEE & LITTLE MOMENTS',1.5,2.28,-2.65,.12,'#66849a');
 for(const x of [.8,2.45])klamp(f,x,3.8,-.7);kplant(f,3.05,0,1.95);
-// Retain all existing activities as discreet objects.
-kbox(L,.45,.03,.32,.1,.65,.45,KM.dark);hit(L,'laptop',.1,.8,.45,.7,.5,.6);
-hit(L,'expo',0,1.4,-2.12,2.2,1.4,.2);hit(L,'cups',1.1,.45,-1.4,.65,.8,.65);
-for(let i=0;i<3;i++)kcyl(L,.09,.07,.18,.9+i*.2,.25,-1.45,KM.white);
-hit(f,'cards',1.5,.8,1.65,1.4,.4,.8);
+// Laptop archive on the upstairs gallery console.
+kbox(L,.9,.08,.45,0,.7,1.04,KM.cream);for(const x of [-.35,.35])kbox(L,.045,.65,.35,x,.34,1.04,KM.wood);
+kbox(L,.42,.025,.28,0,.76,1.04,KM.dark);hit(L,'laptop',0,.9,1.04,.65,.45,.5);
 // Sáng: matte rounded penguin cashier with a flower.
 const sang=new T.Group();sang.position.set(1.55,0,-1.45);f.add(sang);
 const black=kmat('#272b30'),ivory=kmat('#fff9eb'),gold=kmat('#cba363');
