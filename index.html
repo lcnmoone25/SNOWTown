@@ -3992,11 +3992,11 @@ function dogFace(c,xd){const K=0x2b2830,part2=(g,col,x,y,z,sx,sy,sz,rz)=>{const 
   const D=part(c,new T.CircleGeometry(.15,22,Math.PI,Math.PI),0x5a2a3a,0,1.2,.725,1,.95,1);D.material.side=T.DoubleSide;
   const t=part(c,new T.CircleGeometry(.07,14,Math.PI,Math.PI),0xf29aae,0,1.12,.728,1,.8,1);t.material.side=T.DoubleSide}}
 function mkXD(c){dogFace(c,true)}
-function mkTin(c){const K=0x2d2a31,map={};['head','body','leg-1','leg1','foot-1','foot1','armW','handW','armD','handD','tail'].forEach(n=>map[n]=K);
- map['eye-1']=map.eye1=0xffe08a;map.nose=0x8a6a76;map.mouth=0xe58aa0;
- skinMats(c,map,['ear-1','ear1','earin-1','earin1']);c.traverse(o=>{if(/^(collar|heart|spk\d)$/.test(o.name))o.visible=false});
- [-1,1].forEach(s=>{part(c,new T.SphereGeometry(.3,16,12),K,s*.82,1.46,0,.55,1.35,.8,0,0,s*.35);part(c,new T.SphereGeometry(.045,8,6),0x1a171c,s*.33,1.39,.69,1,1.3,.5)});
- const R=0xd8453b,R2=0xb8372f;part(c,new T.SphereGeometry(.8,32,14,0,Math.PI*2,0,Math.PI/2),R,0,1.86,-.06,1,.78,1.0);
+function mkTin(c){const K=0x2d2a31,map={};['head','body','leg-1','leg1','foot-1','foot1','armW','handW','armD','handD','tail','ear-1','ear1'].forEach(n=>map[n]=K);
+ map['eye-1']=map.eye1=0xffe08a;map.nose=0x8a6a76;map.mouth=0xe58aa0;map['earin-1']=map.earin1=0x5a4650;
+ skinMats(c,map,[]);c.traverse(o=>{if(/^(collar|heart|spk\d)$/.test(o.name))o.visible=false});
+ [-1,1].forEach(s=>part(c,new T.SphereGeometry(.045,8,6),0x1a171c,s*.33,1.39,.69,1,1.3,.5));
+ const R=0xd8453b,R2=0xb8372f;part(c,new T.SphereGeometry(.8,32,14,0,Math.PI*2,0,Math.PI/2),R,0,1.84,-.06,1,.66,1.0);
  part(c,new T.TorusGeometry(.79,.03,8,36),R2,0,1.87,-.06,1,1,1,Math.PI/2,0,0);
  part(c,new T.SphereGeometry(.62,32,12),R2,0,1.8,.8,1.12,.08,.82,.2,0,0);
  part(c,new T.SphereGeometry(.055,10,8),R2,0,2.4,-.06)}
