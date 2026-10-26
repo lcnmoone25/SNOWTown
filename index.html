@@ -3791,11 +3791,11 @@ const TEAM_NAME="Our Team Town";
 const STATIONS=[
  {id:'hub',name:'Team Hub',desc:'Where everyone meets: announcements, stand-ups and the weekly wrap-up.',wall:0xe6e3ea,roof:0x3d3943,door:0x7d9cc4,grass:0xc9c6d0,s:1.5,people:[['Moone',1,'Teammate',0],['Cloud',1,'Teammate',7],['Huchu',1,'Nhân vật chính',20]]},
  {id:'sketch',name:'Sketch Studio',desc:'Drawing, lettering and colour passes for new sticker sets.',wall:0xf3d9c4,roof:0xc9708f,door:0xb2557a,grass:0xa9c47f,s:1.4,people:[['Pupu',1,'Teammate',1],['Jian',1,'Teammate',4]]},
- {id:'pack',name:'Trạm xe khách',desc:'Ghé quầy mua vé của tmy, rồi lên xe đi luôn — bizun soát vé ngay trên xe nha.',wall:0xd9efe6,roof:0x6fb7a6,door:0x4f9686,grass:0xb5cf86,s:1.4,people:[['tmy',1,'Bán vé',9],['bizun',1,'Soát vé',5]]},
- {id:'net',name:'Net Café',desc:'Tiệm net 24h: chơi game, lướt web và nghỉ giải lao cùng team.',wall:0xe3dcf5,roof:0x8d7cc4,door:0x6f5fa8,grass:0xa4c58a,s:2,people:[['XD',1,'Teammate',3]]},
+ {id:'pack',name:'Trạm xe khách',desc:'Ghé quầy mua vé của tmy, rồi lên xe đi luôn — bizun soát vé ngay trên xe nha.',wall:0xd9efe6,roof:0x6fb7a6,door:0x4f9686,grass:0xb5cf86,s:1.4,people:[['tmy',1,'Bán vé',9],['bizun',1,'Soát vé',5,0,'post'],['bizun',1,'Soát vé',5,0,'roam']]},
+ {id:'net',name:'Net Café',desc:'Tiệm net 24h: chơi game, lướt web và nghỉ giải lao cùng team.',wall:0xe3dcf5,roof:0x8d7cc4,door:0x6f5fa8,grass:0xa4c58a,s:2,people:[['XD',1,'Teammate',3],['Tin',1,'Teammate',21]]},
  {id:'chick',name:'JolliChick',desc:'Quán gà rán giòn tan, ghé mua bữa trưa cho cả team.',wall:0xfbe8c8,roof:0xe0a252,door:0xb97f33,grass:0xb9cd7c,s:1.8,people:[['jazzfang',1,'Check-in',6,0,'post'],['jazzfang',1,'Check-in',6,0,'roam']]},
  {id:'booth',name:'Photobooth',desc:'Bước vào trong và chụp ảnh thật bằng camera của bạn.',wall:0xfad6dc,roof:0xe56f8e,door:0xc0476b,grass:0xaac886,s:1.5,people:[['Katie',1,'Owner',2]]},
- {id:'cafe',name:'Hayden’s Café',desc:'Quán cà phê whimsy của Hayden: banner CORTIS khắp nơi, góc chụp photocard và góc ngồi đọc fic.',wall:0xffd9e6,roof:0xf06292,door:0xf06292,grass:0xb9cd7c,people:[['Hayden',1,'Chủ quán',8],['Sáng',1,'Thu ngân · Penguin',10]]}
+ {id:'cafe',name:'Hayden’s Café',desc:'Quán cà phê whimsy của Hayden: banner CORTIS khắp nơi, góc chụp photocard và góc ngồi đọc fic.',wall:0xffd9e6,roof:0xf06292,door:0xf06292,grass:0xb9cd7c,people:[['Hayden',1,'Chủ quán',8],['Sáng',1,'Thu ngân · Penguin',10,0,'post'],['Sáng',1,'Thu ngân · Penguin',10,0,'roam']]}
 ];
 // =========================================================================
 const T=THREE,$=s=>document.querySelector(s),clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
@@ -3985,8 +3985,10 @@ function mkPeng(){const g=new T.Group(),M=THREE.__M0,ms=c=>new M({color:c,roughn
  [-1,1].forEach(s=>{B(.3,0x2c2f36,s*1.0,1.0,0,.5,1.35,.7,s*.25);B(.23,0xf0b44c,s*.38,.1,.3,1,.4,1.4);B(.085,0x16181c,s*.3,1.68,.84,1,1.2,.6);B(.03,0xffffff,s*.3-.02,1.73,.9,1,1,1)});
  B(.14,0xf0b44c,0,1.5,.9,1.3,.7,.9);B(.13,0xf59aae,.55,2.1,.4,1,.7,.7);B(.07,0xfff0a0,.55,2.12,.5,1,.6,.6);
  g.scale.setScalar(.5);return g}
+function mkTin(c){const K=0x2d2a31,map={};['head','body','leg-1','leg1','foot-1','foot1','armW','handW','armD','handD','ear-1','ear1','tail'].forEach(n=>map[n]=K);map['eye-1']=map.eye1=0xffd966;map.hat=0xd9453b;
+ skinMats(c,map,['cal0','cal1','cal2','cal3','cal4','cal5','calc'])}
 
-const VAR={8:{b:2,fn:mkPig},9:{b:7,fn:mkPanda}};
+const VAR={8:{b:2,fn:mkPig},9:{b:7,fn:mkPanda},21:{b:7,fn:mkTin}};
 function skinMats(c,map,hide){c.traverse(o=>{if(hide.includes(o.name)){o.visible=false;return}if(o.isMesh){o.material=o.material.clone();const h=map[o.name];if(h!=null)o.material.color.setHex(h)}})}
 function part(c,geo,col,x,y,z,sx,sy,sz,rx,ry,rz){const m=new T.Mesh(geo,new T.MeshStandardMaterial({color:col,roughness:.75}));m.position.set(x,y,z);m.scale.set(sx||1,sy||1,sz||1);m.rotation.set(rx||0,ry||0,rz||0);c.add(m);return m}
 function mkPig(c){const P=0xf6b4c4,D=0xea8fa6,K=0x2b2830,G=0x2b2830,Wh=0xf4f4f6,map={};['head','body','leg-1','leg1','foot-1','foot1','armW','handW','armD','handD'].forEach(n=>map[n]=P);map['cheek-1']=map.cheek1=D;
@@ -4170,7 +4172,7 @@ const PAL=[
  {wall:0xffd3c2,roof:0xe2655a,door:0xb94a42,post:'#ffe9e0',ink:'#e2655a',t:['#ffe6dc','#ffc9b8']}];
 const TREE=[0xd89aae,0x347028,0xaa9ccb,0xdcbb78,0xdb9d8e,0x347028],FONT='ui-rounded,system-ui,sans-serif';
 STATIONS.forEach((st,i)=>{const p=PAL[i%6],g=new T.Group(),k=i%3;g.userData.id=st.id;g.userData.i=i;
-if(st.id=='cafe'){buildCafe(g);g.position.set(15.9,0,-26.3);st.people.forEach((q,j)=>{const k2=i*3+j;PINFO[k2]=q;if(q[1]&&q[2]!='Thu ngân · Penguin')CIT.push(k2)});S.add(g);islands.push(g);return}
+if(st.id=='cafe'){buildCafe(g);g.position.set(15.9,0,-26.3);st.people.forEach((q,j)=>{const k2=i*3+j;PINFO[k2]=q;if(q[1]&&(q[5]=='roam'||q[2]!='Thu ngân · Penguin'))CIT.push(k2)});S.add(g);islands.push(g);return}
 {const S1=st.s||1,gx=.85*S1,pc=new T.Color(p.ink),stone=new T.Color(p.wall).multiplyScalar(.82),Y=0,fz=-1+1.5*S1,CL=[p.roof,pc,0xe9e2d4];
  
  for(let j=0;j<4;j++){const m=new T.Mesh(new T.CylinderGeometry(.34,.34,.06,14),new T.MeshStandardMaterial({color:stone,roughness:.9}));m.position.set(gx+(j%2?.1:-.1),Y+.03,fz+.55+j*.6);g.add(m)}
@@ -4194,7 +4196,7 @@ if(st.id=='cafe'){buildCafe(g);g.position.set(15.9,0,-26.3);st.people.forEach((q
  const sp=new T.Mesh(new T.PlaneGeometry(1.4,.7),tex((x,w,h)=>{x.fillStyle=p.t[0];x.fillRect(0,0,w,h);x.textAlign='center';x.fillStyle=p.ink;x.font='bold 56px '+FONT;x.fillText('OPEN',w/2,66);x.fillStyle='#4a3b45';x.font='bold 20px '+FONT;x.fillText(st.name,w/2,104)},256,128));sp.position.z=.05;sg.add(sp);g.add(sg);
  {const pp=STP[i]||[0,0],used=[];for(const c of [[-5.3,-2.2],[5.3,-2.6],[-2.8,-3.9],[2.8,-3.9],[-4.3,-3.3],[4.3,-3.3],[0,-4.4],[-1.7,-4.6],[1.7,-4.6]]){if(used.length>=2)break;if(roadHit(pp[0]+c[0],pp[1]+c[1],.8)||used.some(u=>Math.hypot(u[0]-c[0],u[1]-c[1])<1.8))continue;used.push(c);tree(c[0],c[1],g,TREE[(i+used.length*2)%6])}}
  const n=st.people.length;
- st.people.forEach((q,j)=>{const k2=i*3+j;PINFO[k2]=q;if(q[5]=='post'||q[2]=='Soát vé')return;if(q[1]){CIT.push(k2);return}const a=animal(q[3]!=null?q[3]:k2,1,q[4]);a.position.set((j-(n-1)/2)*1.2-.7,0,2.3);a.rotation.y=j%2?.35:-.35;g.add(a)});
+ st.people.forEach((q,j)=>{const k2=i*3+j;PINFO[k2]=q;if(q[5]=='post')return;if(q[1]){CIT.push(k2);return}const a=animal(q[3]!=null?q[3]:k2,1,q[4]);a.position.set((j-(n-1)/2)*1.2-.7,0,2.3);a.rotation.y=j%2?.35:-.35;g.add(a)});
  {const P=[[11.8,7],[-17,-8],[-11.8,7],[0,7],[-7.5,-8],[7.5,-8]][i]||[0,0];g.position.set(P[0],0,P[1])}
  S.add(g);islands.push(g)});
 {const rr=(w,h,r)=>{const q=new T.Shape(),x0=-w/2,x1=w/2,y0=-h/2,y1=h/2;q.moveTo(x0+r,y0);q.lineTo(x1-r,y0);q.absarc(x1-r,y0+r,r,-Math.PI/2,0);q.lineTo(x1,y1-r);q.absarc(x1-r,y1-r,r,0,Math.PI/2);q.lineTo(x0+r,y1);q.absarc(x0+r,y1-r,r,Math.PI/2,Math.PI);q.lineTo(x0,y0+r);q.absarc(x0+r,y0+r,r,Math.PI,Math.PI*1.5);return q},CZ=-5,
@@ -4300,7 +4302,7 @@ if(st.id=='cafe'){buildCafe(g);g.position.set(15.9,0,-26.3);st.people.forEach((q
  const rc=[];for(let k=0;k<12;k++)rc.push(nd(Math.cos(k*.5236)*2.8,-13+Math.sin(k*.5236)*2.8));rc.forEach((id,i)=>ln(id,rc[(i+1)%12]));chain(RK['0.0,-1.0'],rc[3],1.5);
  const nL=nd(-12,-18),nR=nd(12,-18),nC=nd(0,-18),nP=nd(0,-21.5),nP1=nd(-10,-21.5),nP2=nd(10,-21.5);chain(RK['-12.0,-1.0'],nL,1.5);chain(RK['12.0,-1.0'],nR,1.5);chain(nL,nC,1.5);chain(nC,nR,1.5);chain(rc[9],nC,1.5);chain(nC,nP,1.5);chain(nP,nP1,1.5);chain(nP,nP2,1.5);{const nP3=nd(16.8,-21.5),nP4=nd(-16.8,-21.5);chain(nP2,nP3,1.5);chain(nP1,nP4,1.5)}
  const ids=[...CIT];
- ids.forEach((id,j)=>{const q=PINFO[id],a=animal(q&&q[3]!=null?q[3]:id,0,q&&q[4]),s=Math.floor(Math.random()*ND.length);a.userData={rs:Math.floor(id/3),rj:id%3,tr:6+Math.random()*30,tw:0,in:0,n:s,to:ED[s][0],x:ND[s][0],z:ND[s][1],ox:(Math.random()-.5)*1,oz:(Math.random()-.5)*1,w:Math.random()*2,ph:j*1.3,v:1.3+Math.random()*.9};S.add(a);walkers.push(a);(S.userData.wk=S.userData.wk||{})[id]=a});
+ ids.forEach((id,j)=>{const q=PINFO[id],a=(q&&q[0]==='Sáng')?mkPeng():animal(q&&q[3]!=null?q[3]:id,0,q&&q[4]),s=Math.floor(Math.random()*ND.length);a.userData={rs:Math.floor(id/3),rj:id%3,tr:6+Math.random()*30,tw:0,in:0,n:s,to:ED[s][0],x:ND[s][0],z:ND[s][1],ox:(Math.random()-.5)*1,oz:(Math.random()-.5)*1,w:Math.random()*2,ph:j*1.3,v:1.3+Math.random()*.9};S.add(a);walkers.push(a);(S.userData.wk=S.userData.wk||{})[id]=a});
  S.userData.step=(dt,t)=>{jfAnim(dt,t);walkers.forEach(a=>{const u=a.userData;let hop;
    if(u.in){u.tw-=dt;a.rotation.y=.8+Math.sin(t*.7+u.ph)*.2;a.position.y=Math.abs(Math.sin(t*2.2+u.ph))*.04;if(u.tw<=0)workOut(a);return}
    if(!u.ctrl&&S.userData.fol!==a&&(u.tr-=dt)<=0&&ROOMS[u.rs]){const g=islands[u.rs],s=STATIONS[u.rs].s||1;if(Math.hypot(u.x-(g.position.x+.85*s),u.z-(g.position.z+4.7))<4.5){workIn(a);return}}
@@ -4536,7 +4538,7 @@ const v=new T.Vector3(),reduce=matchMedia('(prefers-reduced-motion:reduce)').mat
 let last=0;function tick(t){requestAnimationFrame(tick);t*=.001;const dt=Math.min(.05,t-last);last=t;seasonStep(dt,t);todStep(dt,t);
  if(auto&&focused<0&&!mapOn&&!reduce)goal.th+=.0015;
  const BU=S.userData.bus,fo=S.userData.fol;let hd=null;
- if(BU&&BU.on){goal.t.set(BU.g.position.x,1,BU.g.position.z);hd=BU.hd}else if(fo){goal.t.copy(fo.position).add(new T.Vector3(0,.8,0));if(walkers.includes(fo)&&!fo.userData.in)hd=fo.rotation.y+Math.PI}
+ if(BU&&BU.on){goal.t.set(BU.g.position.x,1,BU.g.position.z);hd=BU.hd}else if(fo){goal.t.copy(fo.position).add(new T.Vector3(0,.8,0));if(walkers.includes(fo)&&!fo.userData.in){fo._lp=fo._lp||new T.Vector3();const mv=Math.hypot(fo.position.x-fo._lp.x,fo.position.z-fo._lp.z);fo._lp.copy(fo.position);if(mv>.0015)fo._mt=t;if(t-(fo._mt===undefined?-9:fo._mt)<.4)hd=fo.rotation.y+Math.PI}}
  if(hd!==null&&!P.size)goal.th=hd+Math.PI*2*Math.round((goal.th-hd)/(Math.PI*2));
  cam.t.lerp(goal.t,1-Math.exp(-dt*((BU&&BU.on)||(fo&&fo.userData.ctrl)?30:4.5)));['r','th','ph'].forEach(k=>cam[k]+=(goal[k]-cam[k])*(1-Math.exp(-dt*(k=='th'&&hd!==null?9:4.5))));
  const safe=safeView();if(!(BU&&BU.on))C.setViewOffset(innerWidth,innerHeight,0,(safe.bottom-safe.top)/2,innerWidth,innerHeight);else C.clearViewOffset();
@@ -4738,6 +4740,9 @@ THREE.__mu=1;
  [0xf3c9a8,0xb8d4e6,0xe9a8b6].forEach((col,i)=>{const b=new T.Group(),e=new T.Mesh(new T.SphereGeometry(1,18,14),mat(col));e.scale.set(1,1.2,1);e.position.y=1.4;box(.5,.4,.5,0x8a6a55,0,-.3,0,b);b.add(e);b.position.set(-30+i*30,14+i*2,-30-i*8);b.userData.p=i*3;S.add(b);balloons.push(b)});
 })();
 
+// ---- shop staff stand at their own shop (the roaming clones keep wandering) ----
+STATIONS.forEach((st,i)=>{if(st.id=='cafe')return;const g=islands[i],s=st.s||1,L=st.people.filter(p=>p[1]&&!p[5]&&p[0]!=='Huchu');
+ L.forEach((p,n)=>{const j=st.people.indexOf(p),a=animal(p[3]!=null?p[3]:i*3+j,1,p[4]);a.position.set(.85*s+(n-(L.length-1)/2)*1.3,0,2.9+.6*s);a.rotation.y=n%2?.3:-.3;g.add(a)})});
 // ---- labels (pills under each building, like the island reference) ----
 lbls.forEach((d,i)=>{const st=STATIONS[i];d.innerHTML=st.name+'<small>'+st.people.filter(p=>p[1]&&p[5]!=='post').length+' online</small>'});
 // ---- ID-photo portraits for every citizen (rendered from the real 3D models) ----
