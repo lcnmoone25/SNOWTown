@@ -3794,10 +3794,10 @@ TH.BoxGeometry=function(w,h,d,a,b,c){w=w==null?1:w;h=h==null?1:h;d=d==null?1:d;
 // ===== EDIT ME: your team’s islands. people = [name, online(1/0), role] =====
 const TEAM_NAME="Huchu Town";
 const STATIONS=[
- {id:'hub',name:'Post Office',desc:'Jian’s express delivery post office. Send a parcel or pick up your mail.',wall:0xe6e3ea,roof:0x3d3943,door:0x7d9cc4,grass:0xc9c6d0,s:1.5,people:[['Jian',1,'Postmaster',4,0,'post'],['Moone',1,'Teammate',0],['Cloud',1,'Teammate',7],['Huchu',1,'Nhân vật chính',20]]},
- {id:'sketch',name:'Collage Workshop',desc:'XD’s coloured-pencil-box workshop for paper collage and stickers.',wall:0xf3d9c4,roof:0xc9708f,door:0xb2557a,grass:0xa9c47f,s:1.4,people:[['XD',1,'Workshop owner',3,0,'post']]},
+ {id:'hub',name:'Post Office',desc:'Jian’s express delivery post office. Send a parcel or pick up your mail.',wall:0xe6e3ea,roof:0x3d3943,door:0x7d9cc4,grass:0xc9c6d0,s:1.5,people:[['Jian',1,'Postmaster',4,0,'post'],['Moone',1,'Teammate',0],['Cloud',1,'Teammate',7],['Huchu',1,'Nhân vật chính',20],['Jian',1,'Postmaster',4,0,'roam']]},
+ {id:'sketch',name:'Collage Workshop',desc:'XD’s coloured-pencil-box workshop for paper collage and stickers.',wall:0xf3d9c4,roof:0xc9708f,door:0xb2557a,grass:0xa9c47f,s:1.4,people:[['XD',1,'Workshop owner',3,0,'post'],['XD',1,'Workshop owner',3,0,'roam']]},
  {id:'pack',name:'Trạm xe khách',desc:'Ghé quầy mua vé của tmy, rồi lên xe đi luôn — bizun soát vé ngay trên xe nha.',wall:0xd9efe6,roof:0x6fb7a6,door:0x4f9686,grass:0xb5cf86,s:1.4,people:[['tmy',1,'Bán vé',9],['bizun',1,'Soát vé',5,0,'post'],['bizun',1,'Soát vé',5,0,'roam']]},
- {id:'net',name:'Net Café',desc:'Tiệm net 24h: chơi game, lướt web và nghỉ giải lao cùng team.',wall:0xe3dcf5,roof:0x8d7cc4,door:0x6f5fa8,grass:0xa4c58a,s:2,people:[['Tin',1,'Remote teammate',21,0,'post']]},
+ {id:'net',name:'Net Café',desc:'Tiệm net 24h: chơi game, lướt web và nghỉ giải lao cùng team.',wall:0xe3dcf5,roof:0x8d7cc4,door:0x6f5fa8,grass:0xa4c58a,s:2,people:[['Tin',1,'Remote teammate',21,0,'post'],['Tin',1,'Remote teammate',21,0,'roam']]},
  {id:'chick',name:'AO67 Library',desc:'Pupu’s storybook-shaped library, full of books and quiet reading corners.',wall:0xfbe8c8,roof:0xe0a252,door:0xb97f33,grass:0xb9cd7c,s:1.8,people:[['pupu',1,'Librarian',1,0],['jazzfang',1,'Visitor',6,0,'roam']]},
  {id:'booth',name:'Photobooth',desc:'Bước vào trong và chụp ảnh thật bằng camera của bạn.',wall:0xfad6dc,roof:0xe56f8e,door:0xc0476b,grass:0xaac886,s:1.5,people:[['Katie',1,'Photobooth owner',2,0]]},
  {id:'office',name:'The Sentry P',desc:'Everyone works together on laptops. Tin joins the team meeting remotely.',wall:0xd9e8f3,roof:0x8aaecb,door:0x779cb9,grass:0xb6d3ad,s:1.65,people:[['Michi',1,'Teammate',22]]},
@@ -4442,10 +4442,10 @@ if(st.id=='cafe'){buildCafe(g);g.position.set(15.9,0,-26.3);st.people.forEach((q
  const rc=[];for(let k=0;k<12;k++)rc.push(nd(Math.cos(k*.5236)*2.8,-13+Math.sin(k*.5236)*2.8));rc.forEach((id,i)=>ln(id,rc[(i+1)%12]));chain(RK['0.0,-1.0'],rc[3],1.5);
  const nL=nd(-12,-18),nR=nd(12,-18),nC=nd(0,-18),nP=nd(0,-21.5),nP1=nd(-10,-21.5),nP2=nd(10,-21.5);chain(RK['-12.0,-1.0'],nL,1.5);chain(RK['12.0,-1.0'],nR,1.5);chain(nL,nC,1.5);chain(nC,nR,1.5);chain(rc[9],nC,1.5);chain(nC,nP,1.5);chain(nP,nP1,1.5);chain(nP,nP2,1.5);{const nP3=nd(16.8,-21.5),nP4=nd(-16.8,-21.5);chain(nP2,nP3,1.5);chain(nP1,nP4,1.5)}
  const ids=[...CIT];
- ids.forEach((id,j)=>{const q=PINFO[id],a=(q&&q[0]==='Sáng')?mkPeng():animal(q&&q[3]!=null?q[3]:id,0,q&&q[4]),s=Math.floor(Math.random()*ND.length);a.userData={rs:Math.floor(id/8),rj:id%8,tr:6+Math.random()*30,tw:0,in:0,n:s,to:ED[s][0],x:ND[s][0],z:ND[s][1],ox:(Math.random()-.5)*1,oz:(Math.random()-.5)*1,w:Math.random()*2,ph:j*1.3,v:1.3+Math.random()*.9};S.add(a);walkers.push(a);(S.userData.wk=S.userData.wk||{})[id]=a});
+ ids.forEach((id,j)=>{const q=PINFO[id],a=(q&&q[0]==='Sáng')?mkPeng():animal(q&&q[3]!=null?q[3]:id,0,q&&q[4]),s=Math.floor(Math.random()*ND.length);a.userData={rs:Math.floor(id/8),rj:id%8,hp:STATIONS[Math.floor(id/8)].people.some(p=>p[5]==='post'&&q&&p[0]===q[0]),tr:6+Math.random()*30,tw:0,in:0,n:s,to:ED[s][0],x:ND[s][0],z:ND[s][1],ox:(Math.random()-.5)*1,oz:(Math.random()-.5)*1,w:Math.random()*2,ph:j*1.3,v:1.3+Math.random()*.9};S.add(a);walkers.push(a);(S.userData.wk=S.userData.wk||{})[id]=a});
  S.userData.step=(dt,t)=>{jfAnim(dt,t);walkers.forEach(a=>{const u=a.userData;let hop;
    if(u.in){u.tw-=dt;a.rotation.y=.8+Math.sin(t*.7+u.ph)*.2;a.position.y=Math.abs(Math.sin(t*2.2+u.ph))*.04;if(u.tw<=0)workOut(a);return}
-   if(!u.ctrl&&S.userData.fol!==a&&(u.tr-=dt)<=0&&ROOMS[u.rs]){const g=islands[u.rs],s=STATIONS[u.rs].s||1;if(Math.hypot(u.x-(g.position.x+.85*s),u.z-(g.position.z+4.7))<4.5){workIn(a);return}}
+   if(!u.ctrl&&S.userData.fol!==a&&(u.tr-=dt)<=0&&!u.hp&&ROOMS[u.rs]){const g=islands[u.rs],s=STATIONS[u.rs].s||1;if(Math.hypot(u.x-(g.position.x+.85*s),u.z-(g.position.z+4.7))<4.5){workIn(a);return}}
   if(u.ctrl){if(!u.hc){u.hc=1;u.hd=a.rotation.y}const iz=(ctK.u?1:0)-(ctK.d?1:0),ix=(ctK.r?1:0)-(ctK.l?1:0);const mv=iz||(ix?1:0);u.hd-=ix*2.6*dt;a.rotation.y=u.hd;if(mv){const mx=Math.sin(u.hd)*mv,mz=Math.cos(u.hd)*mv,sp=(mv>0?(iz?4.2:3.2):2.4)*dt;if(ctOK(u.x+mx*sp,u.z))u.x+=mx*sp;if(ctOK(u.x,u.z+mz*sp))u.z+=mz*sp;hop=Math.abs(Math.sin(t*10))*.16}else hop=0;a.position.set(u.x,.07+hop,u.z);return}
   u.hc=0;if(u.w>0){u.w-=dt;hop=Math.abs(Math.sin(t*6+u.ph))*.35}
   else{const ex=ND[u.to][0]+u.ox,ez=ND[u.to][1]+u.oz,dx=ex-u.x,dz=ez-u.z,d=Math.hypot(dx,dz),st=u.v*dt;
@@ -4458,7 +4458,7 @@ if(st.id=='cafe'){buildCafe(g);g.position.set(15.9,0,-26.3);st.people.forEach((q
 const ctK={u:0,d:0,l:0,r:0},ctBL=islands.map((g,i)=>[g.position.x,g.position.z-1,1.8*(STATIONS[i].s||1)]);
 function ctOK(x,z){if(Math.abs(x)>24||z<-24.3||z>19)return false;for(const b of ctBL)if(Math.hypot(x-b[0],z-b[1])<b[2])return false;return true}
 function ctSync(a){const u=a.userData;let b=0,bd=1e9;ND.forEach((n,k)=>{const d=Math.hypot(n[0]-u.x,n[1]-u.z);if(d<bd){bd=d;b=k}});u.n=b;u.to=ED[b][0];u.w=0}
- function workIn(a){const u=a.userData,R=ROOMS[u.rs];if(!R)return;if(STATIONS[u.rs].id=='cafe'){u.tr=20+Math.random()*30;return}u.in=1;u.tw=15+Math.random()*20;R.add(a);a.scale.setScalar(.85);if(STATIONS[u.rs].id=='cafe'){a.position.set(-1.2,0,-5.9);a.rotation.set(0,0,0)}else{a.position.set(-2+u.rj*2.2,0,-.2+(u.rj%2)*.8);a.rotation.set(0,.8,0)}}
+ function workIn(a){const u=a.userData,R=ROOMS[u.rs];if(!R)return;if(STATIONS[u.rs].id=='cafe'){u.tr=20+Math.random()*30;return}u.in=1;u.tw=15+Math.random()*20;R.add(a);a.scale.setScalar(.85);if(STATIONS[u.rs].id=='cafe'){a.position.set(-1.2,0,-5.9);a.rotation.set(0,0,0)}else{a.position.set(-2+(u.rj%3)*2.2,0,-.2+(u.rj%2)*.8);a.rotation.set(0,.8,0)}}
  function workOut(a){const u=a.userData;if(!u.in)return;u.in=0;u.tr=25+Math.random()*30;S.add(a);a.scale.setScalar(.5);const g=islands[u.rs],s=STATIONS[u.rs].s||1;u.x=g.position.x+.85*s;u.z=g.position.z+4.7;u.ox=Math.random()-.5;u.oz=Math.random()-.5;ctSync(a);a.position.set(u.x,.07,u.z);a.rotation.set(0,0,0)}
  S.userData.workOut=workOut;
 Object.entries(S.userData.wk||{}).forEach(([k,a])=>{a.userData.nm=PINFO[k][0]});
@@ -4723,8 +4723,9 @@ const CG_STK=["<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"
 const STICKERS=CG_STK.map(s=>'data:image/svg+xml;utf8,'+encodeURIComponent(s));
 const CG_FONTS={ui:'ui-rounded,system-ui,sans-serif',serif:'Georgia,serif',hand:'"Comic Sans MS","Segoe Print",cursive',mono:'ui-monospace,Menlo,monospace'};
 const CG_FL2={ui:'Tròn',serif:'Serif',hand:'Viết tay',mono:'Mono'};
-const CG_RANGES=[['sc','Kích thước',40,250,'all'],['rot','Xoay',-180,180,'all'],['op','Độ mờ',30,100,'all'],['sh','Bóng đổ',0,100,'nt'],['cT','Cắt trên',0,45,'nt'],['cB','Cắt dưới',0,45,'nt'],['cL','Cắt trái',0,45,'nt'],['cR','Cắt phải',0,45,'nt'],['br','Độ sáng',40,160,'photo'],['ct','Tương phản',40,160,'photo'],['sa','Bão hoà',0,200,'photo'],['fs','Cỡ chữ',10,96,'txt']];
-const CG={items:[],sel:null,z:10,pin:'pin'};
+const CG_RANGES=[['sc','Kích thước',40,250,'all'],['rot','Xoay',-180,180,'all'],['fs','Cỡ chữ',10,96,'txt'],['br','Độ sáng',40,160,'color'],['ct','Tương phản',40,160,'color'],['sa','Bão hoà',0,200,'color'],['op','Độ mờ',30,100,'fx'],['sh','Bóng đổ',0,100,'fxnt']];
+const cgRng=sc=>CG_RANGES.filter(r=>sc.includes(r[4])).map(([k,l,mn,mx,s])=>'<label class="cg-rw" data-scope="'+s+'"><span>'+l+'</span><input type="range" data-k="'+k+'" min="'+mn+'" max="'+mx+'"></label>').join('');
+const CG={items:[],sel:null,z:10,pin:'pin',tab:null};
 function buildCollage(){
  if(document.getElementById('collageGame'))return;
  const st=document.createElement('style');
@@ -4765,16 +4766,31 @@ function buildCollage(){
 .cg-slots{display:flex;gap:8px;overflow-x:auto;min-height:44px;align-items:center}
 .cg-slot{width:52px;height:52px;flex:none;border-radius:14px;background:#fff;border:1.5px dashed #e6a8b2;display:grid;place-items:center;cursor:pointer;padding:4px}
 .cg-slot img{max-width:100%;max-height:100%}
-.cg-ph{width:100%;height:110px;box-sizing:border-box;border:2px dashed #e6a8b2;border-radius:6px;background:#fdf3f6;display:grid;place-items:center;text-align:center;font:800 12px ui-rounded,system-ui;color:#b0568a;cursor:pointer}`;
+.cg-ph{width:100%;height:110px;box-sizing:border-box;border:2px dashed #e6a8b2;border-radius:6px;background:#fdf3f6;display:grid;place-items:center;text-align:center;font:800 12px ui-rounded,system-ui;color:#b0568a;cursor:pointer}
+.cg-ed .cg-r[data-scope=tools]{margin:10px 0 4px}
+.cg-chip[data-tab]{padding:8px 12px}
+.cc-wrap{position:fixed;inset:0;z-index:60;background:rgba(48,24,36,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px;box-sizing:border-box;font-family:ui-rounded,system-ui,sans-serif}
+.cc-tip{color:#fff;font:800 14px ui-rounded,system-ui;opacity:.9}
+.cc-stage{position:relative;touch-action:none;user-select:none;-webkit-user-select:none;line-height:0;z-index:0}
+.cc-stage img{max-width:min(92vw,640px);max-height:50vh;display:block;pointer-events:none;border-radius:2px}
+.cc-box{position:absolute;border:2px solid #fff;box-sizing:border-box;box-shadow:0 0 0 9999px rgba(30,12,20,.6);cursor:move;touch-action:none;background:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45)) 33.33% 0/1px 100% no-repeat,linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45)) 66.66% 0/1px 100% no-repeat,linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45)) 0 33.33%/100% 1px no-repeat,linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.45)) 0 66.66%/100% 1px no-repeat}
+.cc-h{position:absolute;width:36px;height:36px;margin:-18px 0 0 -18px;display:grid;place-items:center;touch-action:none}
+.cc-h:after{content:"";width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #e58aa8;box-sizing:border-box;pointer-events:none}
+.cc-h.cc-n:after,.cc-h.cc-s:after,.cc-h.cc-e:after,.cc-h.cc-w:after{width:12px;height:12px;border-width:2px}
+.cc-h.cc-n,.cc-h.cc-s{cursor:ns-resize}.cc-h.cc-e,.cc-h.cc-w{cursor:ew-resize}.cc-h.cc-nw,.cc-h.cc-se{cursor:nwse-resize}.cc-h.cc-ne,.cc-h.cc-sw{cursor:nesw-resize}
+.cc-stage.lock .cc-h.cc-n,.cc-stage.lock .cc-h.cc-s,.cc-stage.lock .cc-h.cc-e,.cc-stage.lock .cc-h.cc-w{display:none}
+.cc-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;position:relative;z-index:2}`;
  document.head.appendChild(st);
  const d=document.createElement('div');d.id='collageGame';
  d.innerHTML='<div class="cg-top"><span>🖍️ Collage Workshop</span><button class="cg-btn" id="cgExit">↗ Ra ngoài</button></div>'
   +'<div class="cg-board"><div class="cg-inner" id="cgInner"></div></div>'
   +'<div class="cg-bar"><label class="cg-btn">+ Thêm ảnh<input type="file" id="cgFile" accept="image/*" multiple style="display:none"></label><button class="cg-btn" id="cgAddTxt">T  Thêm chữ</button><button class="cg-btn" id="cgSaveT">⬇ Tải template</button><label class="cg-btn">⬆ Nạp template<input type="file" id="cgLoadT" accept=".json,application/json" style="display:none"></label></div>'
   +'<div class="cg-ed off" id="cgEd"><div class="cg-eh" id="cgEdT">Chạm vào một mục để chỉnh</div>'
-  +CG_RANGES.map(([k,l,mn,mx,sc])=>'<label class="cg-rw" data-scope="'+sc+'"><span>'+l+'</span><input type="range" data-k="'+k+'" min="'+mn+'" max="'+mx+'"></label>').join('')
+  +cgRng(['all','txt'])
   +'<div class="cg-r" data-scope="txt" style="display:none"><input type="text" id="cgTxtIn" class="cg-in" placeholder="Nhập chữ..."><input type="color" id="cgTxtCol" value="#8a1a2a"></div>'
   +'<div class="cg-r" data-scope="txt"><span class="cg-rl">Font</span>'+Object.keys(CG_FONTS).map(f=>'<button class="cg-chip" data-font="'+f+'">'+CG_FL2[f]+'</button>').join('')+'<button class="cg-chip" id="cgBold">B Đậm</button></div>'
+  +'<div class="cg-r" data-scope="tools"><button class="cg-chip" id="cgCrop">✂ Cắt ảnh</button><button class="cg-chip" data-tab="color">🎨 Màu</button><button class="cg-chip" data-tab="fx">✨ Hiệu ứng</button></div>'
+  +cgRng(['color','fx','fxnt'])
   +'<div class="cg-r" data-scope="photo"><span class="cg-rl">Ghim</span><button class="cg-chip" data-p="pin">📌 Ghim</button><button class="cg-chip" data-p="clip">📎 Kẹp</button><button class="cg-chip" data-p="tape">🩹 Tape</button></div>'
   +'<div class="cg-r" data-scope="all"><button class="cg-chip" id="cgReset">↺ Đặt lại</button><button class="cg-chip" id="cgFlip">⇆ Lật</button><button class="cg-chip" id="cgUp">▲ Lên trên</button><button class="cg-chip" id="cgDown">▼ Xuống dưới</button><button class="cg-chip cg-danger" id="cgDel">🗑 Xoá</button></div>'
   +'</div>'
@@ -4798,6 +4814,8 @@ function buildCollage(){
  d.querySelector('#cgUp').onclick=()=>{if(!CG.sel)return;CG.sel.el.style.zIndex=++CG.z};
  d.querySelector('#cgDown').onclick=()=>{if(!CG.sel)return;CG.sel.el.style.zIndex=1};
  d.querySelector('#cgDel').onclick=()=>{if(CG.sel)removeItem(CG.sel)};
+ d.querySelector('#cgCrop').onclick=()=>{if(CG.sel&&CG.sel.type==='img'&&CG.sel.img)openCrop(CG.sel)};
+ d.querySelectorAll('#cgEd [data-tab]').forEach(b=>b.onclick=()=>{CG.tab=CG.tab===b.dataset.tab?null:b.dataset.tab;syncEditor()});
  renderSlots();syncEditor();
 }
 function renderSlots(){const s=document.getElementById('cgSlots');if(!s)return;s.innerHTML='';
@@ -4844,9 +4862,68 @@ function applyItem(it){
  }else{
   it.el.style.boxShadow=it.type==='stk'?'none':((2+sh*4)+'px '+(4+sh*8)+'px '+(6+sh*12)+'px rgba(50,30,20,'+(.12+sh*.3)+')');
   if(it.img){it.img.style.filter=it.type==='img'?'brightness('+(it.br/100)+') contrast('+(it.ct/100)+') saturate('+(it.sa/100)+')':'none';
-  it.img.style.clipPath='inset('+it.cT+'% '+it.cR+'% '+it.cB+'% '+it.cL+'%)';}
+  applyCrop(it);}
   it.el.className='cg-item'+(it.type==='stk'?' stk':'')+' p-'+(it.type==='img'?it.pin:'none')+(CG.sel===it?' sel':'');
  }
+}
+function applyCrop(it){
+ const im=it.img;if(!im)return;const c=[it.cT||0,it.cR||0,it.cB||0,it.cL||0];let w=im.parentNode;
+ const wrapped=w&&w.classList&&w.classList.contains('cg-crop');
+ if(!c.some(v=>v>0)){
+  if(wrapped){w.parentNode.insertBefore(im,w);w.remove()}
+  ['position','maxWidth','width','height','left','top'].forEach(k=>im.style[k]='');return}
+ if(!wrapped){const wr=document.createElement('div');wr.className='cg-crop';im.parentNode.insertBefore(wr,im);wr.appendChild(im);w=wr}
+ if(!im.naturalWidth&&!im.complete){im.addEventListener('load',()=>applyItem(it),{once:true})}
+ const nw=im.naturalWidth||100,nh=im.naturalHeight||100,fw=Math.max(.05,1-(c[1]+c[3])/100),fh=Math.max(.05,1-(c[0]+c[2])/100);
+ w.style.cssText='position:relative;overflow:hidden;width:100%;aspect-ratio:'+(nw*fw)+'/'+(nh*fh);
+ Object.assign(im.style,{position:'absolute',maxWidth:'none',width:(100/fw)+'%',height:(100/fh)+'%',left:(-c[3]/fw)+'%',top:(-c[0]/fh)+'%'});
+}
+function openCrop(it){
+ const old=document.getElementById('cgCropM');if(old)old.remove();
+ const m=document.createElement('div');m.id='cgCropM';m.className='cc-wrap';
+ m.innerHTML='<div class="cc-tip">Kéo khung để chọn phần muốn giữ lại</div><div class="cc-stage"><img alt=""><div class="cc-box"></div></div><div class="cc-bar" id="ccAsp"></div><div class="cc-bar"><button class="cg-btn" id="ccCancel">Huỷ</button><button class="cg-btn" id="ccReset">↺ Đặt lại</button><button class="cg-btn" id="ccOk">✓ Xong</button></div>';
+ document.body.appendChild(m);
+ const stage=m.querySelector('.cc-stage'),img=stage.querySelector('img'),box=stage.querySelector('.cc-box');
+ img.src=it.img.src;
+ const MIN=.06,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ let r={x:(it.cL||0)/100,y:(it.cT||0)/100,w:1-((it.cL||0)+(it.cR||0))/100,h:1-((it.cT||0)+(it.cB||0))/100},asp=null;
+ const H={nw:[0,0],n:[50,0],ne:[100,0],e:[100,50],se:[100,100],s:[50,100],sw:[0,100],w:[0,50]};
+ Object.keys(H).forEach(k=>{const h=document.createElement('div');h.className='cc-h cc-'+k;h.dataset.h=k;h.style.left=H[k][0]+'%';h.style.top=H[k][1]+'%';box.appendChild(h)});
+ const draw=()=>{box.style.left=r.x*100+'%';box.style.top=r.y*100+'%';box.style.width=r.w*100+'%';box.style.height=r.h*100+'%'};
+ const kOf=a=>(img.naturalWidth||1)/(a*(img.naturalHeight||1));
+ const ASP=[['Tự do',null],['1:1',1],['4:3',4/3],['3:4',3/4],['16:9',16/9],['9:16',9/16]];
+ const bar=m.querySelector('#ccAsp');
+ const setAsp=a=>{asp=a;stage.classList.toggle('lock',!!a);
+  if(a){const k=kOf(a),w=Math.min(1,1/k),h=w*k;r={x:(1-w)/2,y:(1-h)/2,w,h}}
+  bar.querySelectorAll('.cg-chip').forEach((b,i)=>b.classList.toggle('on',ASP[i][1]===a));draw()};
+ ASP.forEach(([l,a])=>{const b=document.createElement('button');b.className='cg-chip';b.textContent=l;b.onclick=()=>setAsp(a);bar.appendChild(b)});
+ bar.querySelectorAll('.cg-chip')[0].classList.add('on');
+ let drag=null;
+ box.addEventListener('pointerdown',e=>{const h=e.target.dataset?e.target.dataset.h:null;
+  drag={h:h||'move',r0:{...r},rect:stage.getBoundingClientRect(),sx:e.clientX,sy:e.clientY};box.setPointerCapture(e.pointerId);e.preventDefault()});
+ box.addEventListener('pointermove',e=>{if(!drag)return;
+  const {h,r0,rect}=drag,dx=(e.clientX-drag.sx)/rect.width,dy=(e.clientY-drag.sy)/rect.height;
+  if(h==='move'){r.x=clamp(r0.x+dx,0,1-r0.w);r.y=clamp(r0.y+dy,0,1-r0.h);draw();return}
+  let x=r0.x,y=r0.y,x2=r0.x+r0.w,y2=r0.y+r0.h;
+  if(asp&&h.length===2){
+   const dX=h.includes('w')?-1:1,dY=h.includes('n')?-1:1,ax=dX<0?x2:x,ay=dY<0?y2:y,k=kOf(asp);
+   const px=clamp((e.clientX-rect.left)/rect.width,0,1);
+   let w=dX*(px-ax);const maxW=dX>0?1-ax:ax,maxH=dY>0?1-ay:ay;
+   w=Math.max(MIN,Math.min(w,maxW,maxH/k));const hh=w*k;
+   r={x:dX>0?ax:ax-w,y:dY>0?ay:ay-hh,w,h:hh};draw();return}
+  if(h.includes('w'))x=clamp(x+dx,0,x2-MIN);
+  if(h.includes('e'))x2=clamp(x2+dx,x+MIN,1);
+  if(h.includes('n'))y=clamp(y+dy,0,y2-MIN);
+  if(h.includes('s'))y2=clamp(y2+dy,y+MIN,1);
+  r={x,y,w:x2-x,h:y2-y};draw()});
+ const end=()=>{drag=null};box.addEventListener('pointerup',end);box.addEventListener('pointercancel',end);
+ img.onload=()=>{if(asp)setAsp(asp)};
+ m.querySelector('#ccCancel').onclick=()=>m.remove();
+ m.querySelector('#ccReset').onclick=()=>{r={x:0,y:0,w:1,h:1};setAsp(null)};
+ m.querySelector('#ccOk').onclick=()=>{const f=v=>Math.max(0,+(v*100).toFixed(1));
+  it.cL=f(r.x);it.cT=f(r.y);it.cR=f(1-r.x-r.w);it.cB=f(1-r.y-r.h);
+  m.remove();applyItem(it);syncEditor()};
+ draw();
 }
 function selectItem(it){CG.sel=it||null;CG.items.forEach(applyItem);syncEditor()}
 function removeItem(it){it.el.remove();CG.items=CG.items.filter(x=>x!==it);if(CG.sel===it)CG.sel=null;syncEditor()}
@@ -4854,8 +4931,10 @@ function syncEditor(){const ed=document.getElementById('cgEd');if(!ed)return;con
  ed.classList.toggle('off',!it);
  document.getElementById('cgEdT').textContent=it?(type==='txt'?'Đang chỉnh chữ':type==='stk'?'Đang chỉnh sticker':'Đang chỉnh ảnh'):'Chạm vào một mục để chỉnh';
  ed.querySelectorAll('[data-scope]').forEach(n=>{const sc=n.dataset.scope;
-  const show=!it||sc==='all'||(sc==='nt'&&type!=='txt')||(sc==='photo'&&type==='img')||(sc==='txt'&&type==='txt');
+  const T=CG.tab,show=sc==='all'||(!!it&&((sc==='txt'&&type==='txt')||(sc==='photo'&&type==='img')||sc==='tools'||(sc==='color'&&type==='img'&&T==='color')||(sc==='fx'&&T==='fx')||(sc==='fxnt'&&T==='fx'&&type!=='txt')));
   n.style.display=show?'':'none'});
+ ed.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('on',CG.tab===b.dataset.tab);b.style.display=(b.dataset.tab==='color'&&type!=='img')?'none':''});
+ document.getElementById('cgCrop').style.display=(type==='img'&&it.img)?'':'none';
  ed.querySelectorAll('input[type=range]').forEach(r=>{if(it&&it[r.dataset.k]!==undefined)r.value=it[r.dataset.k]});
  const ti=document.getElementById('cgTxtIn');if(it&&type==='txt'&&document.activeElement!==ti)ti.value=it.content;
  const tc=document.getElementById('cgTxtCol');if(it&&type==='txt')tc.value=it.color;
