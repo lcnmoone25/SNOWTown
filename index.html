@@ -3795,7 +3795,7 @@ const STATIONS=[
  {id:'net',name:'Net Café',desc:'Tiệm net 24h: chơi game, lướt web và nghỉ giải lao cùng team.',wall:0xe3dcf5,roof:0x8d7cc4,door:0x6f5fa8,grass:0xa4c58a,s:2,people:[['Tin',1,'Remote teammate',21,0,'post']]},
  {id:'chick',name:'AO67 Library',desc:'Pupu’s storybook-shaped library, full of books and quiet reading corners.',wall:0xfbe8c8,roof:0xe0a252,door:0xb97f33,grass:0xb9cd7c,s:1.8,people:[['pupu',1,'Librarian',1,0,'post'],['jazzfang',1,'Visitor',6,0,'roam']]},
  {id:'booth',name:'Photobooth',desc:'Bước vào trong và chụp ảnh thật bằng camera của bạn.',wall:0xfad6dc,roof:0xe56f8e,door:0xc0476b,grass:0xaac886,s:1.5,people:[['Katie',1,'Photobooth owner',2,0,'post']]},
- {id:'office',name:'The Sentry P',desc:'Everyone works together on laptops. Tin joins the team meeting remotely.',wall:0xd9e8f3,roof:0x8aaecb,door:0x779cb9,grass:0xb6d3ad,s:1.65,people:[]},
+ {id:'office',name:'The Sentry P',desc:'Everyone works together on laptops. Tin joins the team meeting remotely.',wall:0xd9e8f3,roof:0x8aaecb,door:0x779cb9,grass:0xb6d3ad,s:1.65,people:[['Michi',1,'Teammate',22]]},
  {id:'cafe',name:'Hayden’s Café',desc:'Quán cà phê whimsy của Hayden: banner CORTIS khắp nơi, góc chụp photocard và góc ngồi đọc fic.',wall:0xffd9e6,roof:0xf06292,door:0xf06292,grass:0xb9cd7c,people:[['Hayden',1,'Chủ quán',8],['Sáng',1,'Thu ngân · Penguin',10,0,'post'],['Sáng',1,'Thu ngân · Penguin',10,0,'roam']]}
 ];
 // =========================================================================
@@ -4024,7 +4024,22 @@ function mkPanda(c){const W=0xf7f5f2,K=0x2b2830,L=0xc9b6ee,map={};['head','body'
  part(c,new T.SphereGeometry(.9,28,14,0,6.2832,0,1.5708),L,0,1.75,0,1,.78,.86);
  part(c,new T.CylinderGeometry(.55,.55,.06,24),L,0,1.76,-1.02,1,1,.7,-.22);
  part(c,new T.SphereGeometry(.07,10,8),L,0,2.43,0)}
-function animal(k,off){if(k===HUCHU)return mkHuchu();const v=VAR[k],b=v?v.b:((k%8)+8)%8,g=new T.Group(),put=src=>{const c=src.clone();if(v)v.fn(c);g.add(c);const bb=new T.Box3().setFromObject(c),H=(bb.max.y-bb.min.y)||1;g.scale.setScalar(1.1/H)};if(MODELS[b])put(MODELS[b]);else PEND[b].push(put);return g}
+function mkMichi(){const g=new T.Group(),m=c=>new T.MeshStandardMaterial({color:c,roughness:.55}),W=m(0xfbf8f5),P=m(0xf6b8cf),K=m(0x2a2024),FR=m(0xff6fc8),LC=new T.MeshStandardMaterial({color:0xc9a8ff,transparent:true,opacity:.55,roughness:.2});
+ const add=(geo,mat,x,y,z,sx,sy,sz)=>{const q=new T.Mesh(geo,mat);q.position.set(x,y,z);if(sx!==undefined)q.scale.set(sx,sy,sz);g.add(q);return q};
+ add(new T.SphereGeometry(.42,20,16),W,0,.42,0,1,.95,.95);
+ add(new T.SphereGeometry(.32,20,16),W,0,.92,.05);
+ [-.14,.14].forEach(x=>{add(new T.SphereGeometry(.1,12,10),W,x,1.42,0,.55,2.2,.35);add(new T.SphereGeometry(.06,10,8),P,x,1.42,.03,.5,1.9,.3)});
+ [-.3,.3].forEach(x=>add(new T.SphereGeometry(.07,10,8),P,x,.86,.22));
+ [-.12,.12].forEach(x=>{add(new T.SphereGeometry(.035,10,8),K,x,.95,.3);
+  const lens=add(new T.CylinderGeometry(.11,.11,.03,20),LC,x,.95,.3);lens.rotation.x=Math.PI/2;
+  add(new T.TorusGeometry(.12,.025,8,4),FR,x,.95,.31)});
+ add(new T.BoxGeometry(.08,.03,.03),FR,0,.97,.31);
+ add(new T.BoxGeometry(.02,.02,.3),FR,-.25,.95,.15);add(new T.BoxGeometry(.02,.02,.3),FR,.25,.95,.15);
+ add(new T.SphereGeometry(.04,8,6),P,0,.88,.31);
+ add(new T.SphereGeometry(.12,12,10),W,0,.4,-.4);
+ [-.2,.2].forEach(x=>add(new T.SphereGeometry(.14,12,10),W,x,.08,.15,1,.5,1.3));
+ const bb=new T.Box3().setFromObject(g),H=(bb.max.y-bb.min.y)||1;g.scale.setScalar(1.1/H);return g}
+function animal(k,off){if(k===HUCHU)return mkHuchu();if(k===22)return mkMichi();const v=VAR[k],b=v?v.b:((k%8)+8)%8,g=new T.Group(),put=src=>{const c=src.clone();if(v)v.fn(c);g.add(c);const bb=new T.Box3().setFromObject(c),H=(bb.max.y-bb.min.y)||1;g.scale.setScalar(1.1/H)};if(MODELS[b])put(MODELS[b]);else PEND[b].push(put);return g}
 try{GLB.forEach((b,k)=>{const u=Uint8Array.from(atob(b),c=>c.charCodeAt(0)).buffer;new THREE.GLTFLoader().parse(u,'',r=>{MODELS[k]=r.scene;PEND[k].forEach(f=>f(r.scene))},e=>console.warn('GLB',k,e))})}catch(e){console.warn('GLTFLoader unavailable',e)}
 
 function buildMailbox(b){const g=new T.Group(),R=0xd8453b,NV=0x3f7fd0,K=0x2b2b2b,bx=(w,h,d,c,x,y,z)=>box(w,h,d,c,x,y,z,g);
@@ -4540,7 +4555,7 @@ function buildRooms(){const WH=0xfaf5ee,C=h=>new T.Color(h);
    [[-6,5.8],[-5.2,6.3],[5.5,5.2]].forEach(q=>{const fl=new T.Group();fl.position.set(q[0],0,q[1]-3.2);const sm=new T.Mesh(new T.CylinderGeometry(.03,.03,1.1,5),mat(0x7bc043));sm.position.y=.55;fl.add(sm);for(let k=0;k<5;k++){const pt=new T.Mesh(new T.SphereGeometry(.12,8,6),mat([0xff9ec6,0xffd54f,0xc9b8ff][k%3]));pt.position.set(Math.cos(k*1.256)*.16,1.15,Math.sin(k*1.256)*.16);fl.add(pt)}R.add(fl)});
    }
   if(st.id=='cafe'){R.children.forEach(c=>c.visible=false);[KAFE_G.first].forEach(g=>{g.scale.setScalar(2);g.position.set(.23,0,-1.29);R.add(g)})}
-  if(st.id==='office'){const names=[['Moone',0],['pupu',1],['Katie',2],['XD',3],['Jian',4],['bizun',5],['jazzfang',6],['Cloud',7],['Hayden',8],['Sáng',10],['Huchu',20]];names.forEach((v,k)=>{const x=-4.6+(k%4)*3,z=-4+Math.floor(k/4)*3.2;B(2.25,.14,1.1,0xd9bda6,x,1.1,z);B(1.1,.7,.09,0x3f6a9a,x,1.55,z-.35).userData.meetingLaptop=true;B(1.0,.09,.65,0xb5c7d4,x,1.15,z+.2);const a=animal(v[1],.7);a.position.set(x,0,z+1.2);a.rotation.y=Math.PI;R.add(a)});const screen=B(2.7,1.6,.15,0x354c70,4.6,3.5,-6.3);screen.userData.meetingLaptop=true;const mt=new T.Mesh(new T.PlaneGeometry(2.5,1.4),tb((x,w,h)=>{x.fillStyle='#263e68';x.fillRect(0,0,w,h);x.fillStyle='#d5eaf7';x.font='bold 35px sans-serif';x.textAlign='center';x.fillText('TIN · ONLINE',w/2,55);x.font='25px sans-serif';x.fillText('Click to join meeting',w/2,120)},512,256));mt.position.set(4.6,3.5,-6.19);mt.userData.meetingLaptop=true;R.add(mt)}
+  if(st.id==='office'){const names=[['Moone',0],['pupu',1],['Katie',2],['XD',3],['Jian',4],['bizun',5],['jazzfang',6],['Cloud',7],['Hayden',8],['Sáng',10],['Huchu',20],['Michi',22]];names.forEach((v,k)=>{const x=-4.6+(k%4)*3,z=-4+Math.floor(k/4)*3.2;B(2.25,.14,1.1,0xd9bda6,x,1.1,z);B(1.1,.7,.09,0x3f6a9a,x,1.55,z-.35).userData.meetingLaptop=true;B(1.0,.09,.65,0xb5c7d4,x,1.15,z+.2);const a=animal(v[1],.7);a.position.set(x,0,z+1.2);a.rotation.y=Math.PI;R.add(a)});const screen=B(2.7,1.6,.15,0x354c70,4.6,3.5,-6.3);screen.userData.meetingLaptop=true;const mt=new T.Mesh(new T.PlaneGeometry(2.5,1.4),tb((x,w,h)=>{x.fillStyle='#263e68';x.fillRect(0,0,w,h);x.fillStyle='#d5eaf7';x.font='bold 35px sans-serif';x.textAlign='center';x.fillText('TIN · ONLINE',w/2,55);x.font='25px sans-serif';x.fillText('Click to join meeting',w/2,120)},512,256));mt.position.set(4.6,3.5,-6.19);mt.userData.meetingLaptop=true;R.add(mt)}
   if(st.id==='hub'){B(3,1.3,.8,0xe8a77f,0,1,-5);B(2.5,.25,.85,0xffffff,0,1.8,-4.9);const j=animal(4,.9);j.position.set(0,0,-4);R.add(j);dressJian(j);B(1.8,.65,.2,0x8bc7df,0,2.5,-6.65)}
   if(st.id==='sketch'){const a=animal(3,.9);a.position.set(-3,0,0);R.add(a);for(let k=0;k<7;k++)B(.25,2,.25,[0xf48b9c,0xffc47c,0xfbe08b,0x98d9aa,0x8bbef0,0xbba9e9,0xf2b2d2][k],-3+k,1,-5.8)}
   if(st.id==='chick'){const a=animal(1,.9);a.position.set(-3,0,-4);R.add(a);for(let k=0;k<4;k++)B(.7,2.4,2,0xe8d8bb,-5+k*2,1.3,-5)}
@@ -4574,7 +4589,7 @@ function focus(i){leaveRoom();focused=i;S.userData.fol=null;mapOn=false;const g=
  $('#cc').innerHTML=st.people.filter(p=>p[5]!=='post').map(p=>'<span class="chip'+(p[1]?'':' off')+'">'+p[0]+' <i>'+p[2]+'</i></span>').join('');
  $('#enter').style.display='inline-block';$('#enter').textContent=st.id=='pack'?'🚌 Lên xe':st.id=='booth'?'\ud83d\udcf8 B\u01b0\u1edbc v\u00e0o booth':'\ud83d\udeaa B\u01b0\u1edbc v\u00e0o trong';$('#card').classList.add('on');lbls.forEach(l=>l.classList.add('hide'));$('#map').textContent='Town map';framedObject=g;fitBuilding(g)}
 
-const POST_L=[{from:"Tin",to:"Ngan",body:"Hi Ngan, even though we only got to meet once, you left such a lovely impression on me! You’re such a bright person who brings so much joy to the people around you. I hope everything goes well for you in this next chapter, and I wish you lots of success and happiness along the way. Hopefully, our paths will cross again in the future! Take care and keep shining."}];
+const POST_L=[{from:"Tin",to:"Ngan",body:"Hi Ngan, even though we only got to meet once, you left such a lovely impression on me! You’re such a bright person who brings so much joy to the people around you. I hope everything goes well for you in this next chapter, and I wish you lots of success and happiness along the way. Hopefully, our paths will cross again in the future! Take care and keep shining."},{from:"Michi",to:"Ngan",body:"Hi Ngan!! It’s been a short time, but I’m really glad we got the chance to know each other and work together these past few months! It’s been so lovely working with you~ Wishing you all the best for your next adventure!! Hope lots of exciting and wonderful things are coming your way. Take care and good luck with everythinggg!!"}];
 const JIAN_SVG='<svg viewBox="0 0 110 150" width="110" height="150"><path d="M16 150 L20 100 Q55 80 90 100 L94 150Z" fill="#23324f"/><path d="M44 88 L55 108 L66 88Z" fill="#ffffff"/><rect x="50" y="108" width="10" height="9" fill="#f2c14e"/><path d="M28 52 L30 14 L54 40Z" fill="#f6c9a4"/><path d="M82 52 L80 14 L56 40Z" fill="#f6c9a4"/><path d="M32 48 L33 24 L48 40Z" fill="#f2a6b8"/><path d="M78 48 L77 24 L62 40Z" fill="#f2a6b8"/><circle cx="55" cy="62" r="30" fill="#f6c9a4"/><path d="M24 46 Q55 10 86 46 Z" fill="#23324f"/><rect x="18" y="43" width="74" height="9" rx="4" fill="#23324f"/><circle cx="55" cy="32" r="6" fill="#f2c14e"/><circle cx="45" cy="64" r="3.2" fill="#3a2a2a"/><circle cx="65" cy="64" r="3.2" fill="#3a2a2a"/><path d="M52 72 L58 72 L55 76Z" fill="#e88a9a"/><path d="M50 79 Q55 83 60 79" stroke="#3a2a2a" stroke-width="2" fill="none"/><path d="M36 74 L20 70 M36 78 L20 80 M74 74 L90 70 M74 78 L90 80" stroke="#3a2a2a" stroke-width="1.5"/></svg>';
 function buildPost(){
  if(document.getElementById('postGame'))return;
