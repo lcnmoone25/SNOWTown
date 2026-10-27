@@ -3793,8 +3793,8 @@ const STATIONS=[
  {id:'sketch',name:'Collage Workshop',desc:'XD’s coloured-pencil-box workshop for paper collage and stickers.',wall:0xf3d9c4,roof:0xc9708f,door:0xb2557a,grass:0xa9c47f,s:1.4,people:[['XD',1,'Workshop owner',3,0,'post']]},
  {id:'pack',name:'Trạm xe khách',desc:'Ghé quầy mua vé của tmy, rồi lên xe đi luôn — bizun soát vé ngay trên xe nha.',wall:0xd9efe6,roof:0x6fb7a6,door:0x4f9686,grass:0xb5cf86,s:1.4,people:[['tmy',1,'Bán vé',9],['bizun',1,'Soát vé',5,0,'post'],['bizun',1,'Soát vé',5,0,'roam']]},
  {id:'net',name:'Net Café',desc:'Tiệm net 24h: chơi game, lướt web và nghỉ giải lao cùng team.',wall:0xe3dcf5,roof:0x8d7cc4,door:0x6f5fa8,grass:0xa4c58a,s:2,people:[['Tin',1,'Remote teammate',21,0,'post']]},
- {id:'chick',name:'AO67 Library',desc:'Pupu’s storybook-shaped library, full of books and quiet reading corners.',wall:0xfbe8c8,roof:0xe0a252,door:0xb97f33,grass:0xb9cd7c,s:1.8,people:[['pupu',1,'Librarian',1,0,'post'],['jazzfang',1,'Visitor',6,0,'roam']]},
- {id:'booth',name:'Photobooth',desc:'Bước vào trong và chụp ảnh thật bằng camera của bạn.',wall:0xfad6dc,roof:0xe56f8e,door:0xc0476b,grass:0xaac886,s:1.5,people:[['Katie',1,'Photobooth owner',2,0,'post']]},
+ {id:'chick',name:'AO67 Library',desc:'Pupu’s storybook-shaped library, full of books and quiet reading corners.',wall:0xfbe8c8,roof:0xe0a252,door:0xb97f33,grass:0xb9cd7c,s:1.8,people:[['pupu',1,'Librarian',1,0],['jazzfang',1,'Visitor',6,0,'roam']]},
+ {id:'booth',name:'Photobooth',desc:'Bước vào trong và chụp ảnh thật bằng camera của bạn.',wall:0xfad6dc,roof:0xe56f8e,door:0xc0476b,grass:0xaac886,s:1.5,people:[['Katie',1,'Photobooth owner',2,0]]},
  {id:'office',name:'The Sentry P',desc:'Everyone works together on laptops. Tin joins the team meeting remotely.',wall:0xd9e8f3,roof:0x8aaecb,door:0x779cb9,grass:0xb6d3ad,s:1.65,people:[['Michi',1,'Teammate',22]]},
  {id:'cafe',name:'Hayden’s Café',desc:'Quán cà phê whimsy của Hayden: banner CORTIS khắp nơi, góc chụp photocard và góc ngồi đọc fic.',wall:0xffd9e6,roof:0xf06292,door:0xf06292,grass:0xb9cd7c,people:[['Hayden',1,'Chủ quán',8],['Sáng',1,'Thu ngân · Penguin',10,0,'post'],['Sáng',1,'Thu ngân · Penguin',10,0,'roam']]}
 ];
@@ -3998,7 +3998,7 @@ function mkTin(c){c.traverse(o=>{if(/^(collar|heart|spk\d)$/.test(o.name))o.visi
  part(c,new T.TorusGeometry(.79,.03,8,36),R2,0,1.87,-.06,1,1,1,Math.PI/2,0,0);
  part(c,new T.SphereGeometry(.62,32,12),R2,0,1.8,.8,1.12,.08,.82,.2,0,0);
  part(c,new T.SphereGeometry(.055,10,8),R2,0,2.4,-.06)}
-const VAR={8:{b:2,fn:mkPig},9:{b:7,fn:mkPanda},3:{b:3,fn:mkXD},21:{b:3,fn:mkTin}};
+const VAR={8:{b:2,fn:mkPig},9:{b:7,fn:mkPanda},3:{b:3,fn:mkXD},21:{b:3,fn:mkTin},22:{b:2,fn:mkMichiFn}};
 
 function skinMats(c,map,hide){c.traverse(o=>{if(hide.includes(o.name)){o.visible=false;return}if(o.isMesh){o.material=o.material.clone();const h=map[o.name];if(h!=null)o.material.color.setHex(h)}})}
 function part(c,geo,col,x,y,z,sx,sy,sz,rx,ry,rz){const m=new T.Mesh(geo,new T.MeshStandardMaterial({color:col,roughness:.75}));m.position.set(x,y,z);m.scale.set(sx||1,sy||1,sz||1);m.rotation.set(rx||0,ry||0,rz||0);c.add(m);return m}
@@ -4039,7 +4039,13 @@ function mkMichi(){const g=new T.Group(),m=c=>new T.MeshStandardMaterial({color:
  add(new T.SphereGeometry(.12,12,10),W,0,.4,-.4);
  [-.2,.2].forEach(x=>add(new T.SphereGeometry(.14,12,10),W,x,.08,.15,1,.5,1.3));
  const bb=new T.Box3().setFromObject(g),H=(bb.max.y-bb.min.y)||1;g.scale.setScalar(1.1/H);return g}
-function animal(k,off){if(k===HUCHU)return mkHuchu();if(k===22)return mkMichi();const v=VAR[k],b=v?v.b:((k%8)+8)%8,g=new T.Group(),put=src=>{const c=src.clone();if(v)v.fn(c);g.add(c);const bb=new T.Box3().setFromObject(c),H=(bb.max.y-bb.min.y)||1;g.scale.setScalar(1.1/H)};if(MODELS[b])put(MODELS[b]);else PEND[b].push(put);return g}
+function mkMichiFn(c){const bb=new T.Box3().setFromObject(c),W=bb.max.x-bb.min.x,H=bb.max.y-bb.min.y,cx=(bb.max.x+bb.min.x)/2,cy=bb.min.y+H*.72,z=bb.max.z;
+ const R=new T.MeshStandardMaterial({color:0xe53935,roughness:.4}),r=W*.12,t=Math.max(W*.02,.01);
+ [-1,1].forEach(s=>{const lens=new T.Mesh(new T.TorusGeometry(r,t,8,24),R);lens.position.set(cx+s*W*.17,cy,z);c.add(lens)});
+ const br=new T.Mesh(new T.BoxGeometry(W*.12,t,t),R);br.position.set(cx,cy+r*.3,z);c.add(br);
+ [-1,1].forEach(s=>{const tp=new T.Mesh(new T.BoxGeometry(t,t,W*.25),R);tp.position.set(cx+s*(W*.17+r),cy,z-W*.1);c.add(tp)});
+}
+function animal(k,off){if(k===HUCHU)return mkHuchu();const v=VAR[k],b=v?v.b:((k%8)+8)%8,g=new T.Group(),put=src=>{const c=src.clone();if(v)v.fn(c);g.add(c);c.updateWorldMatrix(true,true);const bb=new T.Box3();c.traverse(o=>{if(o.isMesh&&o.visible&&o.geometry){if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();bb.union(o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld))}});const H=bb.isEmpty()?0:(bb.max.y-bb.min.y);g.scale.setScalar(H>0.001&&isFinite(H)?1.1/H:.5)};if(MODELS[b])put(MODELS[b]);else PEND[b].push(put);return g}
 try{GLB.forEach((b,k)=>{const u=Uint8Array.from(atob(b),c=>c.charCodeAt(0)).buffer;new THREE.GLTFLoader().parse(u,'',r=>{MODELS[k]=r.scene;PEND[k].forEach(f=>f(r.scene))},e=>console.warn('GLB',k,e))})}catch(e){console.warn('GLTFLoader unavailable',e)}
 
 function buildMailbox(b){const g=new T.Group(),R=0xd8453b,NV=0x3f7fd0,K=0x2b2b2b,bx=(w,h,d,c,x,y,z)=>box(w,h,d,c,x,y,z,g);
