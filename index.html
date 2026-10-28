@@ -4655,29 +4655,33 @@ function buildRooms(){const WH=0xfaf5ee,C=h=>new T.Color(h);
    }
   if(st.id=='cafe'){R.children.forEach(c=>c.visible=false);[KAFE_G.first].forEach(g=>{g.scale.setScalar(2);g.position.set(.23,0,-1.29);R.add(g)})}
   if(st.id==='office'){
-  const WOOD=0xe9b9cf,DK=0x5b4a5a,NAVY=0x1f2540,PINK=0xff9ccd,SH=0xffe3ef;
-  const cortis=tb((x,w,h)=>{x.fillStyle='#1f2540';x.fillRect(0,0,w,h);x.strokeStyle='#ff9ccd';x.lineWidth=6;x.strokeRect(10,10,w-20,h-20);x.fillStyle='#ff9ccd';x.font='bold 46px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('CORTIS',w/2,h*.42);x.fillStyle='#fff';x.font='bold 22px sans-serif';x.fillText('✦ COLOR OUTSIDE THE LINES ✦',w/2,h*.62);x.font='bold 18px sans-serif';x.fillText('TIN · MOVE ON',w/2,h*.8)},256,320);
-  const loopy=tb((x,w,h)=>{x.fillStyle='#ffd4e6';x.fillRect(0,0,w,h);x.fillStyle='#b5507d';x.font='bold 52px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('Loopy',w/2,h*.4);x.font='bold 40px sans-serif';x.fillText('♡ ♡ ♡',w/2,h*.62);x.font='bold 20px sans-serif';x.fillStyle='#7a4a6a';x.fillText('pink & brown days',w/2,h*.82)},256,320);
+  R.clear();
+  const DK=0x4a4150,PINK=0xf2b6cf,PINK2=0xff9ccd,NAVY=0x1f2540,WALL=0xf4eee6,FLOOR=0x3d3b46;
+  const pix=(w,h,draw)=>{const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);const t=new T.CanvasTexture(c);t.magFilter=T.NearestFilter;t.minFilter=T.NearestFilter;return new T.MeshBasicMaterial({map:t})};
   const plane=(w,h,m,x,y,z)=>{const q=new T.Mesh(new T.PlaneGeometry(w,h),m);q.position.set(x,y,z);R.add(q);return q};
-  // back wall: posters (left), pixel heart poster, laptop desk in the middle, pink shelf on the right
-  plane(2.4,3.0,loopy,-4.2,3.3,-6.84);
-  plane(2.4,3.0,cortis,-1.2,3.3,-6.84);
-  plane(2.4,3.0,art(2,'#ff9ccd','#fff0f6'),1.8,3.3,-6.84);
-  plane(2.2,1.6,art(0,'#ff9ccd','#fff0f6'),4.4,3.9,-6.84);
-  B(3.8,.14,1.7,WOOD,0,1.1,-5.6);
-  [[-1.8,-6.3],[1.8,-6.3],[-1.8,-4.9],[1.8,-4.9]].forEach(([x,z])=>B(.14,1.1,.14,DK,x,.55,z));
-  // open laptop on the desk, screen facing the chair
-  B(1.4,.06,.95,0xbfc5cf,0,1.2,-5.6).userData.meetingLaptop=true;
-  B(1.5,1.1,.07,NAVY,0,1.8,-5.98).userData.meetingLaptop=true;
-  const mt=new T.Mesh(new T.PlaneGeometry(1.36,.86),tb((x,w,h)=>{x.fillStyle='#263e68';x.fillRect(0,0,w,h);x.fillStyle='#d5eaf7';x.font='bold 56px sans-serif';x.textAlign='center';x.fillText('TIN · ONLINE',w/2,h*.42);x.font='30px sans-serif';x.fillText('Click to join meeting',w/2,h*.66)},512,320));
-  mt.position.set(0,1.8,-5.93);mt.userData.meetingLaptop=true;R.add(mt);
-  B(.4,.06,.4,DK,2.6,1.23,-6.2);B(.06,.55,.06,DK,2.6,1.5,-6.2);B(.36,.22,.36,PINK,2.6,1.9,-6.2);
-  // pink shelf on the right
-  B(1.6,.12,.7,SH,5.6,2.6,-6.3);B(1.6,.12,.7,SH,5.6,1.6,-6.3);B(1.6,3.2,.1,PINK,5.6,1.8,-6.65);
-  B(.45,.5,.4,0xffffff,5.2,2.92,-6.3);B(.45,.5,.4,0xc7e9d8,6.0,2.92,-6.3);
-  // chair + Michi sitting in front of the desk
-  B(1.0,.12,1.0,0x6b7388,0,.7,-4.4);B(1.0,1.1,.12,0x6b7388,0,1.3,-3.9);B(.1,.6,.1,DK,0,.35,-4.4);
-  const a=animal(22,.7);a.position.set(0,.6,-4.4);a.rotation.y=Math.PI;R.add(a);
+  // voxel shell: cream back wall, cream left wall, dark floor
+  B(14,7,.3,WALL,0,3.5,-7);B(.3,7,14,0xefe4d8,-7,3.5,0);B(14,.3,14,FLOOR,0,-.15,0);
+  // ceiling lamps (voxel cubes)
+  for(const x of[-5,-2,1,4])B(.9,.5,.9,0x2e2b33,x,6.25,-6.3),B(.6,.3,.6,0xfff1c8,x,5.95,-6.3);
+  // posters on the back wall
+  plane(2.6,3.2,pix(52,64,(x,w,h)=>{x.fillStyle='#ffd4e6';x.fillRect(0,0,w,h);x.fillStyle='#b5507d';x.font='bold 11px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('Loopy',w/2,h*.38);x.fillStyle='#ff9ccd';for(let k=0;k<3;k++)x.fillRect(12+k*12,h*.56,6,6);x.fillStyle='#7a4a6a';x.font='7px sans-serif';x.fillText('pink days',w/2,h*.8)}),-4.6,3.4,-6.8);
+  plane(2.6,3.2,pix(52,64,(x,w,h)=>{x.fillStyle='#1f2540';x.fillRect(0,0,w,h);x.strokeStyle='#ff9ccd';x.lineWidth=2;x.strokeRect(3,3,w-6,h-6);x.fillStyle='#ff9ccd';x.font='bold 12px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('CORTIS',w/2,h*.4);x.fillStyle='#fff';x.font='6px sans-serif';x.fillText('COLOR OUTSIDE',w/2,h*.6);x.fillText('THE LINES',w/2,h*.7)}),-1.4,3.4,-6.8);
+  plane(2.6,3.2,pix(52,64,(x,w,h)=>{x.fillStyle='#fff0f6';x.fillRect(0,0,w,h);x.fillStyle='#ff9ccd';for(let a=0;a<6;a++)for(let b=0;b<8;b++)if((a+b)%2===0)x.fillRect(a*9,b*8,4,4);x.fillStyle='#b5507d';x.font='bold 10px sans-serif';x.textAlign='center';x.fillText('♥',w/2,h/2)}),1.8,3.4,-6.8);
+  // voxel desk with the laptop open, screen facing the chair
+  B(3.8,.2,1.8,PINK,0,1.1,-5.5);
+  [[-1.75,-6.25],[1.75,-6.25],[-1.75,-4.75],[1.75,-4.75]].forEach(([x,z])=>B(.2,1.1,.2,DK,x,.55,z));
+  B(1.4,.08,1,0xc9cfd9,0,1.24,-5.5).userData.meetingLaptop=true;
+  B(1.5,1.1,.07,NAVY,0,1.85,-5.94).userData.meetingLaptop=true;
+  const scr=plane(1.36,.9,pix(64,40,(x,w,h)=>{x.fillStyle='#263e68';x.fillRect(0,0,w,h);x.fillStyle='#d5eaf7';x.font='bold 9px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('TIN · ONLINE',w/2,h*.4);x.font='6px sans-serif';x.fillText('Click to join',w/2,h*.7)}),0,1.85,-5.9);scr.userData.meetingLaptop=true;
+  // pink voxel lamp and a small green plant
+  B(.5,.08,.5,DK,2.8,1.24,-6.1);B(.08,.6,.08,DK,2.8,1.55,-6.1);B(.45,.28,.45,PINK2,2.8,1.95,-6.1);
+  B(.5,.4,.5,0xd96a8a,-2.9,1.4,-6.2);B(.35,.35,.35,0x6fb07a,-2.9,1.8,-6.2);B(.25,.25,.25,0x8fcf8f,-3.1,2.1,-6.2);
+  // shelves on the right wall with voxel books
+  B(2.6,.15,.8,PINK,5.2,2.3,-6.4);B(2.6,.15,.8,PINK,5.2,3.6,-6.4);
+  [[4.5,2.5,0x1f2540],[4.9,2.5,0xff9ccd],[5.3,2.5,0xffffff],[5.7,2.5,0xb5507d],[5.1,3.8,0xff9ccd],[5.5,3.8,0x1f2540]].forEach(([x,y,c])=>B(.3,.5,.5,c,x,y+.25,-6.4));
+  // chair with Michi sitting in front of the desk
+  B(1,.14,1,0x6b7388,0,.75,-4.2);B(1,1.1,.14,0x6b7388,0,1.35,-3.75);B(.12,.7,.12,DK,0,.38,-4.2);
+  const a=animal(22,.7);a.position.set(0,.6,-4.2);a.rotation.y=Math.PI;R.add(a);
 }
   if(st.id==='hub'){B(3,1.3,.8,0xe8a77f,0,1,-5);B(2.5,.25,.85,0xffffff,0,1.8,-4.9);const j=animal(4,.9);j.position.set(0,0,-4);R.add(j);dressJian(j);B(1.8,.65,.2,0x8bc7df,0,2.5,-6.65)}
   if(st.id==='sketch'){const a=animal(3,.9);a.position.set(-3,0,0);R.add(a);for(let k=0;k<7;k++)B(.25,2,.25,[0xf48b9c,0xffc47c,0xfbe08b,0x98d9aa,0x8bbef0,0xbba9e9,0xf2b2d2][k],-3+k,1,-5.8)}
