@@ -5485,7 +5485,7 @@ THREE.__mu=0;
 document.body.classList.add('hudReady');
 requestAnimationFrame(tick);</script>
 <style>
-#concertOpen{position:fixed;z-index:26;left:24%;top:42%;transform:translate(-50%,-50%);display:none;padding:10px 16px;border-radius:18px;background:#27213b;color:#ffe3f2;border:1px solid #ff9ccd;box-shadow:0 4px 0 #b85c96;font:800 13px ui-rounded,system-ui;cursor:pointer;white-space:nowrap}#concertOpen.show{display:block}
+#concertOpen{position:fixed;z-index:26;left:24%;top:42%;transform:translate(-50%,-50%);display:none;padding:10px 16px;border-radius:18px;background:#27213b;color:#ffe3f2;border:1px solid #ff9ccd;box-shadow:0 4px 0 #b85c96;font:800 13px ui-rounded,system-ui;cursor:pointer;white-space:nowrap}#concertOpen.show{display:block}#concertOpen.mapLabel{left:24%;top:42%;transform:translate(-50%,-50%);padding:8px 14px;border-radius:999px;background:linear-gradient(#fffaf4,#fff0e6);color:#6b4a58;border:1px solid #f0d8c7;box-shadow:0 3px 0 #ead1c4,0 6px 16px #573b6926;font:800 13px ui-rounded,system-ui;white-space:nowrap}#concertOpen.mapLabel.show{display:flex;align-items:center;gap:6px}
 #concertHall{position:fixed;inset:0;z-index:110;background:#100d1c;display:none;overflow:hidden;color:#fff;font-family:ui-rounded,system-ui,sans-serif}
 #concertHall.on{display:block}
 #concertCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
@@ -5530,12 +5530,12 @@ requestAnimationFrame(tick);</script>
   if(renderer)return;
   renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.6));renderer.setSize(innerWidth,innerHeight);
   renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.88;
-  scene=new THREE.Scene();scene.background=new THREE.Color(0x110d20);scene.fog=new THREE.Fog(0x110d20,30,75);
+  scene=new THREE.Scene();scene.background=new THREE.Color(0x070810);scene.fog=new THREE.Fog(0x090912,38,92);
   camera=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,.1,100);camera.position.set(0,6,8);
-  scene.add(new THREE.AmbientLight(0xaaa4d8,1.6));const key=new THREE.PointLight(0xff8ed2,7,45);key.position.set(0,12,-20);scene.add(key);
+  scene.add(new THREE.AmbientLight(0x8c87b8,.62));const key=new THREE.PointLight(0xff8ed2,5,48);key.position.set(0,12,-20);scene.add(key);const coolFill=new THREE.PointLight(0x777dff,3,60);coolFill.position.set(-16,10,-24);scene.add(coolFill);const warmFill=new THREE.PointLight(0xffd4a0,1.8,55);warmFill.position.set(16,8,-18);scene.add(warmFill);
   const floor=mat(0x262238);box(46,.5,58,floor,0,-.4,-15);
   // venue walls and ceiling; the back is intentionally open toward the stage
-  box(46,22,.5,mat(0x211b32),0,10,-39);box(.5,22,50,mat(0x211b32),-23,10,-15);box(.5,22,50,mat(0x211b32),23,10,-15);
+  box(46,22,.5,mat(0x100f19),0,10,-39);box(.5,22,50,mat(0x15131d),-23,10,-15);box(.5,22,50,mat(0x15131d),23,10,-15);
   box(46,.5,50,mat(0x292239),0,20,-15);
   for(let x=-18;x<=18;x+=6){box(.25,18,.25,mat(0x3c3155),x,10,-38.7);const lamp=box(2.4,.18,.7,mat(0xffc7ea,1.8),x,18.7,-25);lamp.rotation.z=.06}
   // stage / backdrop
@@ -5557,12 +5557,15 @@ requestAnimationFrame(tick);</script>
   [-15,-9,9,15].forEach((x,i)=>{const beam=new THREE.Mesh(new THREE.ConeGeometry(3.5,18,16,1,true),new THREE.MeshBasicMaterial({color:i%2?0x8e8bff:0xff7fd2,transparent:true,opacity:.08,depthWrite:false,side:THREE.DoubleSide}));beam.position.set(x,10,-22);beam.rotation.x=Math.PI;scene.add(beam)});
   [-15,15].forEach(x=>[-24,-21,-18].forEach(z=>box(1.5,2,.7,mat(0x100d19),x,4,z)));
   // crowd silhouettes in seated rows, intentionally fixed in place
-  for(let row=0;row<9;row++){const z=7-row*3.2;for(let k=-11;k<=11;k++){
-   const x=k*1.18+(row%2)*.55,head=new THREE.Mesh(new THREE.SphereGeometry(.34,10,8),mat([0x211b2d,0x382840,0x2b243b][(row+k+40)%3]));head.position.set(x,2.05,z);scene.add(head);
-   const body=new THREE.Mesh(new THREE.CapsuleGeometry(.32,1.15,3,8),mat([0x292236,0x3a2944,0x30273e][(row+k+40)%3]));body.position.set(x,1.15,z+.1);scene.add(body);
+  for(let row=0;row<17;row++){const z=10-row*2.05;for(let k=-19;k<=19;k++){
+   const x=k*.88+(row%2)*.42,shade=[0x171721,0x252132,0x30253a,0x1e2030][(row+k+80)%4];
+   const head=new THREE.Mesh(new THREE.SphereGeometry(.29,9,7),mat(shade));head.position.set(x,2.05+Math.random()*.12,z);scene.add(head);
+   const body=new THREE.Mesh(new THREE.CapsuleGeometry(.29,.92,3,7),mat([0x20202b,0x34283c,0x292535,0x383047][(row+k+80)%4]));body.position.set(x,1.22,z+.1);scene.add(body);
+   // raised arms make the crowd look like they're cheering
+   if((row+k)%4===0){for(const side of [-1,1]){const arm=new THREE.Mesh(new THREE.CapsuleGeometry(.09,.62,2,5),mat(0x3a3046));arm.position.set(x+side*.42,2.05,z);arm.rotation.z=side*.5;scene.add(arm)}}
   }}
-  // little glow sticks scattered in the audience
-  for(let n=0;n<180;n++){const x=(Math.random()-.5)*33,z=3-Math.random()*27;const stick=new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,.72,5),new THREE.MeshBasicMaterial({color:[0xff9ccd,0xb7f7ff,0xc9b5ff,0xffe28b][n%4]}));stick.position.set(x,2.7+Math.random()*1.2,z);scene.add(stick)}
+  // Dense field of glowing lightsticks, like a final-concert audience photo.
+  for(let n=0;n<620;n++){const x=(Math.random()-.5)*35,z=9-Math.random()*34;const stick=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.65,5),new THREE.MeshBasicMaterial({color:[0xff9ccd,0xb7f7ff,0xc9b5ff,0xffe28b,0xffffff][n%5]}));stick.position.set(x,2.65+Math.random()*1.3,z);scene.add(stick)}
   window.addEventListener('resize',resize);
  }
  function resize(){if(renderer){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}}
@@ -5573,7 +5576,10 @@ requestAnimationFrame(tick);</script>
  function render(){if(!ov.classList.contains('on'))return;cameraOrbit();renderer.render(scene,camera);raf=requestAnimationFrame(render)}
  function enter(){setup();ov.classList.add('on');started=true;theta=0;phi=1.28;cameraOrbit();v.play().catch(()=>{});const flash=ov.querySelector('#concertFlash');flash.classList.remove('snap');void flash.offsetWidth;flash.classList.add('snap');if(!raf)render()}
  function exit(){ov.classList.remove('on');v.pause();if(raf){cancelAnimationFrame(raf);raf=0} }
- cBtn.onclick=enter;ov.querySelector('#concertExit').onclick=exit;
+ cBtn.onclick=()=>{if(document.body.classList.contains('mapLbl')){enter()}else enter()};ov.querySelector('#concertExit').onclick=exit;
+ // In Town Map mode the concert is shown as a normal place-label bubble (not the dark entry button).
+ function syncConcertMapLabel(){const mapMode=document.body.classList.contains('mapLbl');cBtn.classList.toggle('mapLabel',mapMode);if(mapMode){cBtn.classList.add('show');cBtn.textContent='🎤 Concert Hall';}else{cBtn.classList.remove('show');cBtn.textContent='🎤 Enter Concert Hall';}}
+ new MutationObserver(syncConcertMapLabel).observe(document.body,{attributes:true,attributeFilter:['class']});syncConcertMapLabel();
  // Reveal the entrance only after the player taps the concert-hall area in the town view.
  const townCanvas=document.querySelector('canvas');if(townCanvas){townCanvas.addEventListener('click',e=>{if(document.body.classList.contains('insideVenue')||document.body.classList.contains('ridingBus')||document.body.classList.contains('hasCard')||document.body.classList.contains('dialogActive'))return;const r=townCanvas.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;if(x<.43&&y>.22&&y<.68){cBtn.classList.add('show')}})}
  ov.querySelector('#concertSound').onclick=()=>{v.muted=!v.muted;ov.querySelector('#concertSound').textContent=v.muted?'🔇 Sound off':'🔊 Sound on';if(!v.muted)v.play().catch(()=>{})};
