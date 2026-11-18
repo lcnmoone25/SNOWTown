@@ -16,8 +16,8 @@ const poses=[
 {name:"Talk with hand gestures",desc:"Gesture with both hands while talking",image:3,type:"talk"},
 {name:"Double V sign",desc:"Double V sign",image:4,type:"double"}
 ,
-{name:"Half heart",desc:"Make a half-heart gesture near your chest with one hand",image:5,type:"halfheart"},
-{name:"Hands on head",desc:"Place both hands on top of your head with elbows out",image:6,type:"head"}];
+{name:"Half heart",desc:"Make a half-heart gesture near your chest with one hand",image:7,type:"halfheart"},
+{name:"Hands on head",desc:"Place both hands on top of your head with elbows out",image:8,type:"head"}];
 const $=id=>document.getElementById(id), video=$('cam');let active=-1,showing=false,deadline=0,poseDetector=null,handsDetector=null,stream=null,running=false,lastPose=null,lastHands=[],matchedAt=0,holdOff=0,lastFrame=0;
 function next(){let n=Math.floor(Math.random()*(poses.length-1));active=(active+1+n)%poses.length;$('sample').src=guideImages[active];$('poseTitle').textContent='POSE '+(active+1)+' / '+poses.length;$('poseDesc').textContent=poses[active].desc;$('guide').textContent='Try this pose: '+poses[active].name;$('effect').classList.remove('on');$('counter').classList.remove('on');$('demo').textContent='✨ Thử hiệu ứng';showing=false;matchedAt=0;holdOff=Date.now()+1000}
 function updateOverlay(){if(!showing)return;const p=lastPose,stage=document.querySelector('.stage'),el=$('effect');const W=stage.clientWidth,H=stage.clientHeight;
