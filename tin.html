@@ -16,8 +16,8 @@ const poses=[
 {name:"Talk with hand gestures",desc:"Gesture with both hands while talking",image:3,type:"talk"},
 {name:"Double V sign",desc:"Double V sign",image:4,type:"double"}
 ,
-{name:"Half heart",desc:"Make a half-heart gesture near your chest with one hand",image:7,type:"halfheart"},
-{name:"Hands on head",desc:"Place both hands on top of your head with elbows out",image:8,type:"head"}];
+{name:"Half heart",desc:"Make a half-heart gesture near your chest with one hand",image:5,type:"halfheart"},
+{name:"Hands on head",desc:"Place both hands on top of your head with elbows out",image:6,type:"head"}];
 const $=id=>document.getElementById(id), video=$('cam');let active=-1,showing=false,deadline=0,poseDetector=null,handsDetector=null,stream=null,running=false,lastPose=null,lastHands=[],matchedAt=0,holdOff=0,lastFrame=0;
 function next(){let n=Math.floor(Math.random()*(poses.length-1));active=(active+1+n)%poses.length;$('sample').src=guideImages[active];$('poseTitle').textContent='POSE '+(active+1)+' / '+poses.length;$('poseDesc').textContent=poses[active].desc;$('guide').textContent='Try this pose: '+poses[active].name;$('effect').classList.remove('on');$('counter').classList.remove('on');$('demo').textContent='✨ Thử hiệu ứng';showing=false;matchedAt=0;holdOff=Date.now()+1000}
 function updateOverlay(){if(!showing)return;const p=lastPose,stage=document.querySelector('.stage'),el=$('effect');const W=stage.clientWidth,H=stage.clientHeight;
@@ -41,8 +41,8 @@ case 'peace':return h.some(x=>handState(x).peace)||[L,R].some(w=>w.y<nose.y+.30&
 case 'board':return L.y<ls.y+.48&&R.y<rs.y+.48&&Math.abs(L.x-R.x)>.12&&L.y>nose.y-.30&&R.y>nose.y-.30;
 case 'talk':return [L,R].some((w,i)=>w.y<(i?rs:ls).y+.48&&w.y>nose.y-.20);
 case 'double':return h.filter(x=>handState(x).peace).length>=2 || (L.y<nose.y+.32&&R.y<nose.y+.32&&Math.abs(L.x-R.x)>.13);
-case 'halfheart':return (L.y>nose.y+.25&&L.y<ls.y+.45&&Math.abs(L.x-nose.x)<.45)||(R.y>nose.y+.25&&R.y<rs.y+.45&&Math.abs(R.x-nose.x)<.45);
-case 'head':return L.y<nose.y+.12&&R.y<nose.y+.12&&Math.abs(L.x-nose.x)<.42&&Math.abs(R.x-nose.x)<.42&&L.x<R.x;
+case 'halfheart':return [L,R].some((w,i)=>w.y>nose.y+.08&&w.y<(i?rs:ls).y+.70&&Math.abs(w.x-nose.x)>.10&&Math.abs(w.x-nose.x)<.75);
+case 'head':return [L,R].some(w=>w.y<nose.y+.38&&Math.abs(w.x-nose.x)<.72);
 default:return false}}
 async function init(){try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:720}},audio:false});video.srcObject=stream;await video.play();$('hint').textContent='Camera on · Pose tracking';$('start').textContent='📷 Camera đang bật';if(typeof Pose==='undefined'||typeof Hands==='undefined')throw Error('Không tải được MediaPipe');
 poseDetector=new Pose({locateFile:f=>'https://cdn.jsdelivr.net/npm/@mediapipe/pose/'+f});poseDetector.setOptions({modelComplexity:0,smoothLandmarks:true,minDetectionConfidence:.55,minTrackingConfidence:.5});poseDetector.onResults(r=>{lastPose=r.poseLandmarks||null});
